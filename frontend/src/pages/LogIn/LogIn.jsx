@@ -23,7 +23,7 @@ export default function LogIn() {
     }
 
     return (
-        <div id="login" className="px-5 mt-10 md:pt-20 md:px-32">
+        <div id="login" className="px-5 mt-10 md:pt-20 md:px-32 flex flex-col justify-between">
             <div className=" md:h-24">
                 <h1 className="text-center font-semibold text-3xl md:text-6xl">
                     Welcome to InsightLens!

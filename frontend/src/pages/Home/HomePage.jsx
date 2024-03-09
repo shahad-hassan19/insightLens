@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 export default function HomePage() {
     return (
-        <div className="flex flex-col h-screen px-5 xs:px-5 sm:px-10">
+        <div className="flex flex-col h-screen justify-between px-5 xs:px-5 sm:px-10">
             <nav className='w-full flex items-center justify-between lg:px-10 py-5'>
                 <div>
                     <span className='text-2xl font-bold'>InsightLens</span>

@@ -1,22 +1,26 @@
-import { useState } from "react";
+
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import Footer from './../../components/Footer/Footer';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Register() {
     const navigate = useNavigate()
 
-    // const [fullName, setFullName] = useState("");
-    // const [username, setUserName] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-    // const [error, setError] = useState("");
 
     const handleLogout = async () => {
         if (window.confirm("Are you sure you want to logout?")) {
             try {
+                const token = localStorage.getItem('token'); // Assuming token is stored in localStorage after successful login
+            if (!token) {
+                throw new Error('No access token found');
+            }
+
                 // Send request to invalidate session (clear JWT token)
-                await axios.get('http://localhost:4000/api/users/logout');
+                await axios.post('http://localhost:4000/api/users/logout', {
+                    headers: {
+                        Authorization: `${token}`
+                    }
+                });
                 localStorage.removeItem('token'); // Remove token from local storage
                 navigate("/login"); // Redirect to login page
             } catch (error) {
@@ -27,7 +31,7 @@ export default function Register() {
 
     return (
         <div id="logout">
-                <button onClick={handleLogout} className="text-white bg-red-500 px-4 py-2 rounded">Logout</button>
+                <span onClick={handleLogout}>Logout</span>
         </div>
     )
 }

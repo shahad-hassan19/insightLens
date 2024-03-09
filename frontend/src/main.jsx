@@ -9,9 +9,14 @@ import Layout from './Layout'
 import Register from './pages/Register/Register';
 import UserDashboard from './components/UserDashboard/UserDashboard';
 import Admin from './components/UserProfile/Admin';
-// import Intensity from './components/Intensity/Intensity';
 import Settings from './components/Settings/Settings.jsx'
 import UserHome from './components/UserHome/UserHome'
+import SectorData from './Charts/SectorData.jsx'
+import IntensityData from './Charts/IntensityData';
+import YearData from './Charts/YearData';
+import PestleData from './Charts/PestleData';
+import CountryData from './Charts/CountryData';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +28,11 @@ const router = createBrowserRouter(
           <Route path='' element={<UserHome/>} />
           <Route path='user-profile' element={<Admin/>} />
           <Route path='user-dashboard' element={<UserDashboard/>} />
+          <Route path='sector' element={<SectorData/>} />
+          <Route path='intensity' element={<IntensityData/>} />
+          <Route path='pestle' element={<PestleData/>} />
+          <Route path='year' element={<YearData/>} />
+          <Route path='country' element={<CountryData/>} />
           <Route path='settings' element={<Settings/>} />
         </Route>
       </Route>

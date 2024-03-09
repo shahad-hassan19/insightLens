@@ -6,18 +6,17 @@ import Footer from './../../components/Footer/Footer';
 export default function Register() {
     const navigate = useNavigate()
 
-    const [ fullName, setFullName] = useState()
-    const [ username, setUserName] = useState()
-    const [ email, setEmail] = useState()
-    const [ password, setPassword] = useState()
-    const [ error, setError ] = useState()
+    const [ fullName, setFullName] = useState('')
+    const [ username, setUserName] = useState('')
+    const [ email, setEmail] = useState('')
+    const [ password, setPassword] = useState('')
+    const [ error, setError ] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:4000/api/users/register', {fullName, username, email, password});
-            if(!response.data.existedUser)
-            navigate("/user")
+            await axios.post('http://localhost:4000/api/users/register', {fullName, username, email, password});
+            navigate("/login")
         } catch (error) {
             setError("Username or Email already exists.")
         }

@@ -5,19 +5,18 @@ import Footer from './../../components/Footer/Footer';
 export default function LogIn() {
     const navigate = useNavigate()
 
-    const [email, setEmail] = useState()
-    const [username, setUserName] = useState()
-    const [password, setPassword] = useState()
-    const [error, setError] = useState("");
+    const [email, setEmail] = useState('')
+    const [username, setUserName] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('');
 
     const handleSubmit = async(e) => {
         e.preventDefault()
         try {
             const response = await axios.post('http://localhost:4000/api/users/login', {email, username, password})
-            const token = response.data.accessToken;
-            localStorage.setItem('token', token);
+            const token = response.data.data.accessToken;
+            localStorage.setItem("token", token)
             navigate("/user");
-            console.log(response.data)
         } catch (error) {
             setError("Invalid username/email or password.");
         }

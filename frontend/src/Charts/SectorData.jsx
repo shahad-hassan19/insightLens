@@ -2,7 +2,7 @@ import {useRef} from "react";
 import axios from "axios";
 import * as d3 from "d3";
 
-const PieChart = () => {
+const SectorData = () => {
     const svgRef = useRef();
 
     const legendRef = useRef()
@@ -74,11 +74,18 @@ const PieChart = () => {
 
 
     return (
-        <div className="m-10 p-10 flex items-center justify-evenly">
-            <svg ref={svgRef}></svg>
-            <div className="text-left" ref={legendRef}></div>
+        <div id="sector-data" className="flex justify-between">
+            <div className="flex flex-col">
+                <div>
+                    <h3 className="text-3xl font-bold text-left m-6">Sector</h3>
+                </div>
+                <div className="ml-60 p-10 flex items-center justify-evenly">
+                    <svg ref={svgRef}></svg>
+                    <div className="text-left" ref={legendRef}></div>
+                </div>
+            </div>
         </div>
     );
 };
 
-export default PieChart;
+export default SectorData;

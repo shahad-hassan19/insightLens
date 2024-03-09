@@ -22,7 +22,7 @@ router.route("/register").post(
     registerUser)
 
 router.route("/login").post(loginUser)
-router.route("/c/:username").get(verifyJWT, getCurrentUser)
+router.route("/currentUser").get(verifyJWT, getCurrentUser)
 router.route("/sector").get( getSector)
 router.route("/intensity").get( getIntensity)
 router.route("/logout").post(verifyJWT, logoutUser)

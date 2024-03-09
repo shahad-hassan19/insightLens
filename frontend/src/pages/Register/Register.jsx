@@ -23,16 +23,16 @@ export default function Register() {
     }
 
     return (
-        <div id="register" className="px-32 pt-20">
-            <div className=" h-24">
-                <h1 className="font-semibold text-center text-6xl">
+        <div id="register" className="px-5 mt-10 md:pt-20 md:px-32">
+            <div className="md:h-24">
+                <h1 className="font-semibold text-center text-3xl md:text-6xl">
                     Welcome to InsightLens!
                 </h1>
             </div>
             <div>
-                {error && <p className="text-red-500">{error}</p>}
+                {error && <p className="text-center text-red-500">{error}</p>}
             </div>
-            <div className=" p-4 shadow-emerald-50 border-white ">
+            <div className="m-4 md:mt-16 lg:mt-0 shadow-emerald-50 border-white ">
                 <form onSubmit={handleSubmit} className=" flex flex-col gap-4 items-center justify-around">
                     <div className="flex flex-col">
                         <label htmlFor="full_name" className="font-semibold text-left">
@@ -81,7 +81,7 @@ export default function Register() {
                     <button className="w-28 text-white" >Register</button>
                 </form>
             </div>
-            <div className="mt-2 mb-10">
+            <div className="mt-2 mb-10 md:mb-20 text-center">
                 <p>Already registered? <Link to="/login">LogIn</Link> here!</p>
             </div>
             <Footer/>

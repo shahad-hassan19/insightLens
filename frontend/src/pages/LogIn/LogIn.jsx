@@ -23,16 +23,16 @@ export default function LogIn() {
     }
 
     return (
-        <div id="register" className="pt-20 px-32">
-            <div className=" h-24">
-                <h1 className=" text-center font-semibold text-6xl">
+        <div id="login" className="px-5 mt-10 md:pt-20 md:px-32">
+            <div className=" md:h-24">
+                <h1 className="text-center font-semibold text-3xl md:text-6xl">
                     Welcome to InsightLens!
                 </h1>
             </div>
             <div>
-                {error && <p className="text-red-500">{error}</p>}
+                {error && <p className="text-center text-red-500">{error}</p>}
             </div>
-            <div className=" p-4 shadow-emerald-50 border-white ">
+            <div className="m-4 md:mt-16 lg:mt-0 shadow-emerald-50 border-white ">
                 <form onSubmit={handleSubmit} className=" flex flex-col gap-4 items-center justify-around">
                     <div className="flex flex-col">
                         <label htmlFor='username_email' className="text-left font-semibold">
@@ -59,7 +59,7 @@ export default function LogIn() {
                     <button className="w-28 text-white">LogIn</button>
                 </form>
             </div>
-            <div className='mt-2 mb-24'>
+            <div className='mt-2 mb-10 md:mb-16 text-center'>
                 <p>Not registered yet? <Link to="/register">Register</Link> here!</p>
             </div>
             <Footer/>

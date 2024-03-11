@@ -16,7 +16,7 @@ export default function Register() {
             }
 
                 // Send request to invalidate session (clear JWT token)
-                await axios.post('http://localhost:4000/api/users/logout', {
+                await axios.post('https://insight-lens-beta.vercel.app/api/users/logout', {
                     headers: {
                         Authorization: `${token}`
                     }

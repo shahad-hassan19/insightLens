@@ -39,7 +39,7 @@ export default function Admin() {
     }, [])
 
     return(
-      <div className='flex flex-col px-80'>
+      <div className='flex flex-col items-center'>
           <div className='m-5 flex self-center'>
               <img src={pic} width={160} height={160} />
           </div>

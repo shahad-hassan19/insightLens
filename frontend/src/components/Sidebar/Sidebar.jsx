@@ -12,6 +12,7 @@ import { useState } from "react";
 export default function Sidebar() {
     const navigate = useNavigate();
     const [isDataChartsOpen, setIsDataChartsOpen] = useState(false);
+
     const handleLogout = async () => {
         if (window.confirm("Are you sure you want to logout?")) {
             try {
@@ -39,13 +40,13 @@ export default function Sidebar() {
 
 
     return (
-    <div>
+    <div className="h-full">
         <div
         id="left-container"
-        className="fixed h-full border-gray-400 shadow-2xl"
+        className=" h-full md:shadow-2xl"
         >
             <nav>
-                <div className=" h-20 flex justify-center items-center py-4 px-3 mx-3">
+                <div className="flex justify-center items-center py-8">
                     <span className="text-2xl font-extrabold text-black">
                         InsightLens
                     </span>
@@ -85,7 +86,6 @@ export default function Sidebar() {
                                     {isDataChartsOpen ? <TiArrowSortedDown className="-rotate-90" />: <TiArrowSortedDown/>}
                                 </span>
                             </span>
-                            {/* Render the links inside the accordion if it's open */}
                             {isDataChartsOpen && (
                                     <ul className="pl-6">
                                         <li className="py-2">
@@ -131,7 +131,7 @@ export default function Sidebar() {
                                     </ul>
                                 )}
                         </li>
-                        <li className="pt-2 pb-4 px-3 mx-3">
+                        <li className="pt-4 md:pt-2 pb-4 px-3 mx-3">
                             <Link
                             to="/user/settings"
                             className=" text-black font-medium text-xl inline-flex items-center gap-1"

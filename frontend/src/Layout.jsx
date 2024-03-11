@@ -15,11 +15,11 @@ function App() {
   };
 
   return (
-    <div className="flex gap-10 w-full px-1 sm:px-5 md:px-0">
-      <div id="left container" className="hidden md:block">
+    <div className="flex gap-10 w-full min-h-screen px-1 sm:px-5 md:px-0">
+      <div id="left container" className="hidden md:block min-h-full">
         <Sidebar />
       </div>
-      <div id="right-container" className="flex flex-col w-full">
+      <div id="right-container" className="flex flex-col w-full min-h-full">
         <div className="w-full flex items-center gap-1 sm:gap-5">
           <div onClick={handleClick} className="md:hidden">
             {toggleIcon ? (
@@ -29,7 +29,7 @@ function App() {
             )}
           </div>
           <div
-            className={`md:hidden z-50 top-0 left-0 fixed h-full w-full bg-white ${
+            className={`md:hidden z-50 top-0 left-0 fixed w-full bg-white ${
               toggleIcon ? " block " : " hidden"
             }`}
           >

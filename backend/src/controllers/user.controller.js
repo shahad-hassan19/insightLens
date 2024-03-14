@@ -142,14 +142,83 @@ const getIntensity = asyncHandler( async(req, res) => {
         intensityCounts[intensity] = (intensityCounts[intensity] || 0) + 1;
         });
 
-
-        return res.json(intensity)
+        const Intensity = [];
+        for (let intensity in intensityCounts){
+            Intensity.push({intensity: intensity, intensity_Counts: intensityCounts[intensity]})
+        }
+        return res.json(Intensity)
 
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 })
+
+const getYear = asyncHandler( async(req, res) => {
+    try {
+        const documents = await Data.find();
+        const yearCounts = {};
+
+        documents.forEach(doc => {
+        let year = doc.start_year || "NA";
+        yearCounts[year] = (yearCounts[year] || 0) + 1;
+        });
+
+        const startYear = [];
+        for (let year in yearCounts){
+            startYear.push({year: year, yearCounts: yearCounts[year]})
+        }
+        return res.json(startYear)
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+const getPestle = asyncHandler( async(req, res) => {
+    try {
+        const documents = await Data.find();
+        const pestleCounts = {};
+
+        documents.forEach(doc => {
+        let pestle = doc.pestle || "NA";
+        pestleCounts[pestle] = (pestleCounts[pestle] || 0) + 1;
+        });
+
+        const pestle_counts = [];
+        for (let pestle in pestleCounts){
+            pestle_counts.push({pestle: pestle, pestleCounts: pestleCounts[pestle]})
+        }
+        return res.json(pestle_counts)
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+const getCountry = asyncHandler( async(req, res) => {
+    try {
+        const documents = await Data.find();
+        const countryCounts = {};
+
+        documents.forEach(doc => {
+        let country = doc.country || "NA";
+        countryCounts[country] = (countryCounts[country] || 0) + 1;
+        });
+
+        const country_counts = [];
+        for (let country in countryCounts){
+            country_counts.push({country: country, countryCounts: countryCounts[country]})
+        }
+        return res.json(country_counts)
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
+
 
 const logoutUser = asyncHandler( async(req, res) =>{
     await User.findByIdAndUpdate(
@@ -183,6 +252,9 @@ export {
     generateAccessAndRefreshToken,
     getCurrentUser,
     getIntensity,
+    getYear,
+    getPestle,
+    getCountry,
     getSector,
     logoutUser,
 }

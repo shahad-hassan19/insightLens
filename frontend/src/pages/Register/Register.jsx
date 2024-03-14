@@ -15,7 +15,7 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('https://insight-lens-beta.vercel.app/api/users/register', {fullName, username, email, password});
+            await axios.post('http://localhost:4000/api/users/register', {fullName, username, email, password});
             navigate("/login")
         } catch (error) {
             setError("Username or Email already exists.")

@@ -1,9 +1,16 @@
 import {useRef} from "react";
 import axios from "axios";
 import * as d3 from "d3";
+import { useNavigate } from "react-router";
 
-const IntensityData =() => {
+const Intensity =() => {
     const svgRef = useRef()
+    const legendRef = useRef()
+
+    const navigate = useNavigate()
+    const handleClick = () => {
+        navigate("/user/intensity")
+    }
 
     const fetchData = async() => {
         try {
@@ -17,8 +24,8 @@ const IntensityData =() => {
     fetchData()
 
     const setUpHistogram = (data) => {
-        const w = 400;
-        const h = 400;
+        const w = 250;
+        const h = 250;
         const margin = { top: 20, right: 30, bottom: 30, left: 40 };
         const width = w - margin.left - margin.right;
         const height = h - margin.top - margin.bottom - 20;
@@ -28,6 +35,8 @@ const IntensityData =() => {
                         .attr('height', h)
                         .append('g')
                         .attr('transform', `translate(${margin.left},${margin.top})`);
+
+                        const color = d3.scaleOrdinal().domain(data.map(d => d.intensity)).range(d3.schemeDark2)
 
                     const x = d3.scaleBand()
                         .domain(data.map(d => d.intensity))
@@ -48,47 +57,49 @@ const IntensityData =() => {
                         .attr('y', d => y(d.intensity_Counts))
                         .attr('width', x.bandwidth())
                         .attr('height', d => height - y(d.intensity_Counts))
-                        .attr('fill', 'steelblue');
+                        .attr('fill', color);
 
                     svg.append('g')
                         .attr('class', 'x-axis')
                         .attr('transform', `translate(0,${height})`)
                         .call(d3.axisBottom(x));
 
-                    svg.append('g')
-                        .attr('class', 'y-axis')
-                        .call(d3.axisLeft(y));
+                        const legend = d3.select(legendRef.current)
+                        .append('ul')
+                        .selectAll('li')
+                        .data(data)
+                        .enter()
+                        .append('li')
+                        .attr('class', 'legend-item')
+                        .style('list-style-type', 'none')
+                        .style('font-size', '14px')
+                        .style('margin-bottom', '5px')
 
-                    svg.append("text")
-                        .attr("transform", `translate(${width / 2}, ${height + 35})`)
-                        .style("text-anchor", "middle")
-                        .text("Intensity")
-                        .attr('font-weight', 700)
+                    legend.append('span')
+                        .attr('class', 'legend-color')
+                        .style('display', 'inline-block')
+                        .style('width', '12px')
+                        .style('height', '12px')
+                        .style('margin-right', '5px')
+                        .style('background-color', d => color(d.intensity))
 
-                    svg.append("text")
-                        .attr("transform", "rotate(-90)")
-                        .attr("y", 0 - margin.left)
-                        .attr("x", 0 - (height / 2 + 20))
-                        .attr("dy", "1em")
-                        .style("text-anchor", "middle")
-                        .text("Intensity Counts")
-                        .attr('font-weight', 700)
+                    legend.append('span')
+                        .text(d => (`${(d.intensity_Counts)}` ))
     }
 
 
 
     return (
-        <div id="intensity-data" className="flex justify-between">
-            <div className="flex flex-col">
-                <div>
-                    <h3 className="text-3xl font-bold text-left m-6">Intensity</h3>
-                </div>
-                <div className="p-10 flex items-center justify-center">
-                    <svg ref={svgRef}></svg>
-                </div>
-            </div>
+        <div onClick={handleClick} className="w-full flex flex-col items-center lg:align-content-between p-5">
+        <div className="lg:self-start">
+            <h3 className="text-2xl font-bold mb-10">Reports by Intensity</h3>
         </div>
+        <div className="w-full flex flex-col lg:flex-row items-center justify-center lg:justify-around">
+                <div><svg ref={svgRef}></svg></div>
+                <div ref={legendRef}></div>
+            </div>
+    </div>
     )
 }
 
-export default IntensityData
+export default Intensity

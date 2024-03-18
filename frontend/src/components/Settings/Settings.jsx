@@ -1,10 +1,35 @@
+import axios from "axios"
 import { useState } from "react"
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Settings() {
+
+    const navigate = useNavigate()
     const [isHeadingOpen, setIsHeadingOpen] = useState(false)
     const toggleHeadings= () => {
         setIsHeadingOpen(!isHeadingOpen)
+    }
+
+    const deleteAccount = () => {
+        if (window.confirm("Are you sure you want to delete this account permanently?")) {
+            try {
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    throw new Error("No access token found");
+                }
+
+                axios.post("http://localhost:4000/api/users/deactivation", {},{
+                    headers: {
+                        Authorization: `${token}`
+                    }
+                });
+                localStorage.removeItem("token");
+                navigate("/register");
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
     }
 
     return (
@@ -27,8 +52,8 @@ export default function Settings() {
                 {/* {isHeadingOpen && <div>InsightLens</div>} */}
 
                 <div  className="flex justify-between items-center gap-x-10">
-                    <li>Delete your account</li>
-                    <button className="text-white">Delete Account</button>
+                    <li>Deactivate account</li>
+                    <button onClick={deleteAccount} className="text-white">Deactivate</button>
                 </div>
 
             </ul>

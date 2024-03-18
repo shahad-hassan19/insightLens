@@ -4,21 +4,11 @@ import axios from 'axios';
 
 export default function Admin() {
   const [userData, setUserData] = useState('')
-    // useEffect(() => {
-    //   axios.get('http://localhost:4000/api/users/currentUser')
-    // .then(res => {
-    //   setUserData(res.data)
-    //   console.log(userData)
-    // })
-    // .catch((error) => {
-    //   console.log("Error while fetching username", error)
-    // })
-    // }, [])
 
     useEffect(() => {
       const fetchUserData = async () => {
         try {
-          const token = localStorage.getItem('token'); // Assuming token is stored in localStorage after successful login
+          const token = localStorage.getItem('token');
           if (!token) {
             throw new Error('No access token found');
           }

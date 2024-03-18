@@ -5,31 +5,45 @@ import { Outlet } from "react-router";
 import Footer from "./components/Footer/Footer";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ThemeProvider } from "./context/useTheme";
 
-function App() {
+function Layout() {
   const [toggleIcon, setToggleIcon] = useState(false);
+  const [themeMode, setThemeMode] = useState("light")
+  const lightTheme = () => {
+    setThemeMode("light")
+  }
+  const darkTheme = () => {
+    setThemeMode("dark")
+  }
 
   const handleClick = () => {
     setToggleIcon(!toggleIcon);
   };
 
+  useEffect(() => {
+    document.querySelector('html').classList.remove('light', 'dark')
+    document.querySelector('html').classList.add(themeMode)
+  }, [themeMode])
+
   return (
-    <div className="flex gap-10 w-full min-h-screen px-1 sm:px-5 md:px-0">
-      <div id="left container" className="hidden md:block min-h-full">
+    <ThemeProvider value={{themeMode, lightTheme, darkTheme}}>
+      <div className={`flex gap-10 min-w-screen min-h-screen px-1 sm:px-5 md:px-0`}>
+      <div id="left container" className="hidden md:block md:mr-10">
         <Sidebar />
       </div>
-      <div id="right-container" className="flex flex-col w-full min-h-full">
+      <div id="right-container" className="flex flex-col pb-5 w-full">
         <div className="w-full flex items-center gap-1 sm:gap-5">
           <div onClick={handleClick} className="md:hidden">
             {toggleIcon ? (
               ""
             ) : (
-              <GiHamburgerMenu className=" font-semibold text-3xl" />
+              <GiHamburgerMenu className="font-semibold text-3xl" />
             )}
           </div>
           <div
-            className={`md:hidden z-50 top-0 left-0 fixed w-full bg-white ${
+            className={`md:hidden overflow-y-auto z-50 top-0 left-0 fixed w-full h-full ${themeMode === "dark" ? "dark:bg-gray-900" : "bg-white"} ${
               toggleIcon ? " block " : " hidden"
             }`}
           >
@@ -44,13 +58,14 @@ function App() {
         </div>
         <div>
           <Outlet />
-          <div>
+        </div>
+        <div>
             <Footer />
           </div>
-        </div>
       </div>
     </div>
+    </ThemeProvider>
   );
 }
 
-export default App;
+export default Layout;

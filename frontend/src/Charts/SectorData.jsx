@@ -21,14 +21,15 @@ const SectorData = () => {
 
 
     const setUpPie = (data) => {
-        const w = 360;
-        const h = 360;
+        const w = 400;
+        const h = 400;
         const radius = w/2;
         const svg = d3.select(svgRef.current)
         .attr('width', w)
         .attr('height', h)
         .style('overflow', 'visible')
-        .style('margin-top', '200px')
+        .append('g')
+        .attr('transform', `translate(${w / 2},${h / 2})`);
 
         const myData = d3.pie().value(d => d.percentage)(data)
         const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius)
@@ -78,7 +79,7 @@ const SectorData = () => {
                 <div>
                     <h3 className="text-3xl font-bold text-left m-6">Sector</h3>
                 </div>
-                <div className="ml-60 p-10 flex items-center justify-evenly">
+                <div className="p-10 flex items-center justify-center">
                     <svg ref={svgRef}></svg>
                     <div className="text-left" ref={legendRef}></div>
                 </div>

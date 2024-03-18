@@ -4,6 +4,17 @@
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.dark{
+  background-color: #111827;
+  color: #ffffff;
+}
+
+.light{
+  background-color: #ffffff;
+  color: #000000;
 }
 
 a {

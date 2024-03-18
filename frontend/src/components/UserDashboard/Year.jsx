@@ -1,11 +1,16 @@
 import {useRef} from "react";
 import axios from "axios";
 import * as d3 from "d3";
+import { useNavigate } from "react-router";
 
 
-const YearData = () => {
+const Year = () => {
 
     const svgRef = useRef()
+    const navigate = useNavigate()
+    const handleClick = () => {
+        navigate("/user/year")
+    }
 
     const fetchData = async () => {
         try {
@@ -20,11 +25,11 @@ const YearData = () => {
     fetchData()
 
     const setUpLine = (data) => {
-        const w = 400;
-        const h = 400;
-        const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+        const w = 100;
+        const h = 100;
+        const margin = { top: 4, right: 6, bottom: 6, left: 8 };
         const width = w - margin.left - margin.right;
-        const height = h - margin.top - margin.bottom - 20;
+        const height = h - margin.top - margin.bottom - 4;
 
         const svg = d3.select(svgRef.current)
                         .attr('width', w)
@@ -63,7 +68,7 @@ const YearData = () => {
                         .call(d3.axisLeft(y));
 
                     svg.append("text")
-                        .attr("transform", `translate(${width / 2}, ${height + 35})`)
+                        .attr("transform", `translate(${width / 2}, ${height + 7})`)
                         .style("text-anchor", "middle")
                         .text("Year")
                         .attr('font-weight', 700)
@@ -71,7 +76,7 @@ const YearData = () => {
                     svg.append("text")
                         .attr("transform", "rotate(-90)")
                         .attr("y", 0 - margin.left)
-                        .attr("x", 0 - (height / 2 + 20))
+                        .attr("x", 0 - (height / 2 + 4))
                         .attr("dy", "1em")
                         .style("text-anchor", "middle")
                         .text("Year Counts")
@@ -80,17 +85,15 @@ const YearData = () => {
     }
 
     return (
-        <div id="year-data" className="flex justify-between">
-            <div className="flex flex-col">
-                <div>
-                    <h3 className="text-3xl font-bold text-left m-6">Start Year</h3>
-                </div>
-                <div className="p-10 flex items-center justify-center">
-                    <svg ref={svgRef}></svg>
-                </div>
+        <div onClick={handleClick} className="w-full flex flex-col items-center lg:align-content-between p-5">
+            <div className="lg:self-start">
+                <h3 className="text-2xl font-bold mb-10">Yearly Reports</h3>
+            </div>
+            <div className="w-full flex flex-col lg:flex-row items-center justify-center">
+                    <div><svg ref={svgRef}></svg></div>
             </div>
         </div>
     )
 }
 
-export default YearData
+export default Year

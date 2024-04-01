@@ -17,8 +17,9 @@ export default function Footer() {
             </div>
             <div className="flex flex-col md:flex-row text-center justify-center px-5 xs:gap-0 md:gap-5">
                 <span>
-                    2024 <Link to="/" className="text-orange-400 font-bold">InsightLens.Inc.</Link> All Rights Reserved.
+                    2024 <Link to="/" className="text-orange-400 font-bold">InsightLens.Inc.</Link>
                 </span>
+                <span>All Rights Reserved.</span>
                 <ul className="flex justify-center list-disc gap-8 ml-4">
                     <li>Privacy Policy</li>
                     <li>Terms & Conditions</li>

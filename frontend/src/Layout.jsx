@@ -33,7 +33,7 @@ function Layout() {
       <div id="left container" className="hidden md:block md:mr-10">
         <Sidebar />
       </div>
-      <div id="right-container" className="flex flex-col pb-5 w-full">
+      <div id="right-container" className="flex flex-col items-center lg:items-start gap-y-10 pb-5 w-full">
         <div className="w-full flex items-center gap-1 sm:gap-5">
           <div onClick={handleClick} className="md:hidden">
             {toggleIcon ? (

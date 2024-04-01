@@ -17,8 +17,8 @@ const PestleData = () => {
     fetchData()
 
     const setUpBar = (data) => {
-        const w = 400;
-        const h = 400;
+        const w = 320;
+        const h = 320;
         const margin = { top: 20, right: 30, bottom: 30, left: 40 };
         const width = w - margin.left - margin.right;
         const height = h - margin.top - margin.bottom - 20;
@@ -81,7 +81,7 @@ const PestleData = () => {
                 <div>
                     <h3 className="text-3xl font-bold text-left m-6">Pestle</h3>
                 </div>
-                <div className="p-10 flex items-center justify-center">
+                <div className="md:p-10 flex items-center justify-center">
                     <svg ref={svgRef}></svg>
                 </div>
             </div>

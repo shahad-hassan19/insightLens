@@ -21,8 +21,8 @@ const SectorData = () => {
 
 
     const setUpPie = (data) => {
-        const w = 400;
-        const h = 400;
+        const w = 320;
+        const h = 320;
         const radius = w/2;
         const svg = d3.select(svgRef.current)
         .attr('width', w)
@@ -79,7 +79,7 @@ const SectorData = () => {
                 <div>
                     <h3 className="text-3xl font-bold text-left m-6">Sector</h3>
                 </div>
-                <div className="p-10 flex items-center justify-center">
+                <div className="md:p-10 flex items-center justify-center">
                     <svg ref={svgRef}></svg>
                     <div className="text-left" ref={legendRef}></div>
                 </div>

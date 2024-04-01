@@ -83,14 +83,14 @@ const Sector = () => {
                     <div className=" font-medium">{localStorage.getItem("sector5")}</div>
                     <div>{localStorage.getItem("percentage5")}%</div>
                 </div>
-                <div className="w-full flex items-center justify-between">
+                {/* <div className="w-full flex items-center justify-between">
                     <div className=" font-medium">{localStorage.getItem("sector6")}</div>
                     <div>{localStorage.getItem("percentage6")}%</div>
                 </div>
                 <div className="w-full flex items-center justify-between">
                     <div className=" font-medium">{localStorage.getItem("sector7")}</div>
                     <div>{localStorage.getItem("percentage7")}%</div>
-                </div>
+                </div> */}
                 </div>
                 </div>
         </div>

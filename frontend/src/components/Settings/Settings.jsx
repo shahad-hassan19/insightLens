@@ -1,9 +1,19 @@
 import axios from "axios"
 import { useState } from "react"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useTheme from './../../context/useTheme';
 
 
 export default function Settings() {
+    const {themeMode, lightTheme, darkTheme} = useTheme()
+    const onChangeBtn = (e) => {
+        const darkModeStatus = e.currentTarget.checked
+        if(darkModeStatus){
+            darkTheme()
+        }else{
+            lightTheme()
+        }
+    }
 
     const navigate = useNavigate()
     const [isHeadingOpen, setIsHeadingOpen] = useState(false)
@@ -40,16 +50,29 @@ export default function Settings() {
                 </div>
                 <div className="ml-5 p-5 flex flex-col items-center text-xl font-medium">
                 <ul className="">
-                <li className="my-8">Change Password</li>
-                <li className="my-8" onClick={toggleHeadings}>Themes</li>
-                {/* {isHeadingOpen && <div>
-                    <select className="div m-2 border-2">
-                        <option>Dark Mode</option>
-                        <option>Light Mode</option>
-                    </select>
-                </div>} */}
-                <li className="mt-8 mb-4" onClick={toggleHeadings}>About Us</li>
-                {/* {isHeadingOpen && <div>InsightLens</div>} */}
+                <li className="my-8" onClick={toggleHeadings}>Change Password</li>
+                <li className="my-8">
+                    <div className="flex items-center justify-between">
+                        <span>Themes</span>
+                        <div className="flex items-center gap-x-2">
+                        {themeMode === 'dark' ? (<span className="text-white">Light</span>) : (<span className="text-white">Light</span>)}
+                            <div>
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    value=""
+                                    className="sr-only peer"
+                                    onChange={onChangeBtn}
+                                    checked={themeMode==="dark"}
+                                />
+                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none  rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                            </label>
+                            </div>
+                            {themeMode === 'light' ? (<span className="text-black">Dark</span>) : (<span className="text-gray-900">Dark</span>)}
+                        </div>
+                    </div>
+                </li>
+                <li className="mt-8 mb-4"><Link to="/about-us">About Us</Link></li>
 
                 <div  className="flex justify-between items-center gap-x-10">
                     <li>Deactivate account</li>

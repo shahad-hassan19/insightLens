@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom';
 import Footer from '../../components/Footer/Footer';
 export default function HomePage() {
     return (
-        <div className="flex flex-col h-screen justify-between px-5 xs:px-5 sm:px-10">
+        <div className="flex flex-col h-screen min-w-screen justify-between px-5 sm:px-10">
             <nav className='w-full flex items-center justify-between lg:px-10 py-5'>
                 <div>
                     <span className='text-2xl font-bold'>InsightLens</span>
                 </div>
-                <div className=''>
+                <div className='flex flex-col sm:flex-row items-center gap-y-3'>
                     <button className='mr-3'><Link to="/login" className='text-white'>LogIn</Link> </button>
                     <button><Link to="/register" className='text-white'>Register</Link></button>
                 </div>

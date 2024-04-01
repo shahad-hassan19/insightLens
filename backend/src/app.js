@@ -6,7 +6,7 @@ import cors from 'cors';
 const app = express()
 
 app.use(cors({
-    origin: 'https://insight-lens-frontend.vercel.app/',
+    origin: process.env.CORS_ORIGIN,
     credentials: true
 }))
 

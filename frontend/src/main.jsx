@@ -16,6 +16,7 @@ import IntensityData from './Charts/IntensityData';
 import YearData from './Charts/YearData';
 import PestleData from './Charts/PestleData';
 import CountryData from './Charts/CountryData';
+import About from './pages/About/About.jsx'
 
 
 const router = createBrowserRouter(
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
           <Route path='country' element={<CountryData/>} />
           <Route path='settings' element={<Settings/>} />
         </Route>
+        <Route path='about-us' element={<About/>} />
       </Route>
   )
 )

@@ -14,7 +14,7 @@ export default function Navbar() {
     }
 
     return (
-        <div className={`w-full`}>
+        <div className="w-full">
             <div className='w-full flex sm:justify-between border-gray-400 border-2 rounded-md p-1 md:px-4 my-5'>
                 <div className='flex items-center gap-2 md:p-4 rounded-md'>
                     <CiSearch />

@@ -216,7 +216,26 @@ const getCountry = asyncHandler( async(req, res) => {
     }
 })
 
-const logoutUser = asyncHandler( async(req, res) =>{
+const addNewReport = asyncHandler( async(req, res) => {
+    try {
+        const {intensity, sector, insight, url, start_year, country, pestle, title} = req.body
+        const data = await Data.create({intensity, sector, insight, url, start_year, country, pestle, title})
+        const newData = await Data.findById(data._id)
+        if(!newData){
+            throw new ApiError(500, "Something went wrong, while adding report.")
+        }
+
+        return res
+        .status(201)
+        .json( new ApiResponse(200, newData, "Report Added successfully!"))
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'Internal Server Error'})
+    }
+})
+
+const logoutUser = asyncHandler( async(req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -266,6 +285,7 @@ export {
     getPestle,
     getCountry,
     getSector,
+    addNewReport,
     logoutUser,
     deleteUser
 }

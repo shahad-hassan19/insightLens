@@ -25,7 +25,6 @@ const CountryData = () => {
         const svg = d3.select(svgRef.current)
                         .attr('width', w)
                         .attr('height', h)
-                        .style('overflow', 'visible')
                         .append('g')
                         .attr('transform', `translate(${w / 2},${h / 2})`);
 

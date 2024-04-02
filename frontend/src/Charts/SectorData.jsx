@@ -27,7 +27,6 @@ const SectorData = () => {
         const svg = d3.select(svgRef.current)
         .attr('width', w)
         .attr('height', h)
-        .style('overflow', 'visible')
         .append('g')
         .attr('transform', `translate(${w / 2},${h / 2})`);
 
@@ -41,48 +40,39 @@ const SectorData = () => {
         .attr('d', arcGenerator)
         .attr('fill', d => color(d.data.sector))
 
-        // svg.selectAll()
-        // .data(myData)
-        // .join('text')
-        // .text(d => `${d.data.sector}: ${d.data.percentage}`)
-        // .attr('transform', (d) => `translate(${arcGenerator.centroid(d)})`)
-        // .style('text-anchor', 'middle')
+        const legend = d3.select(legendRef.current)
+            .append('ul')
+            .selectAll('li')
+            .data(data)
+            .enter()
+            .append('li')
+            .attr('class', 'legend-item')
+            .style('list-style-type', 'none')
+            .style('font-size', '14px')
+            .style('margin-bottom', '5px');
 
-        // const legend = d3.select(legendRef.current)
-        //     .append('ul')
-        //     .selectAll('li')
-        //     .data(data)
-        //     .enter()
-        //     .append('li')
-        //     .attr('class', 'legend-item')
-        //     .style('list-style-type', 'none')
-        //     .style('font-size', '14px')
-        //     .style('margin-bottom', '5px');
+        legend.append('span')
+            .attr('class', 'legend-color')
+            .style('display', 'inline-block')
+            .style('width', '12px')
+            .style('height', '12px')
+            .style('margin-right', '5px')
+            .style('background-color', d => color(d.sector));
 
-        // legend.append('span')
-        //     .attr('class', 'legend-color')
-        //     .style('display', 'inline-block')
-        //     .style('width', '12px')
-        //     .style('height', '12px')
-        //     .style('margin-right', '5px')
-        //     .style('background-color', d => color(d.sector));
-
-        // legend.append('span')
-        //     .text(d => (`${d.sector} : ${(d.percentage)}%` ));
+        legend.append('span')
+            .text(d => (`${d.sector} : ${(d.percentage)}%` ));
 
     }
 
 
     return (
-        <div id="sector-data" className="flex justify-between">
-            <div className="flex flex-col">
-                <div>
-                    <h3 className="text-3xl font-bold text-left m-6">Sector</h3>
-                </div>
-                <div className="md:p-10 flex items-center justify-center">
-                    <svg ref={svgRef}></svg>
-                    <div className="text-left" ref={legendRef}></div>
-                </div>
+        <div id="sector-data" className="flex flex-col justify-between">
+            <div>
+                <h3 className="text-3xl font-bold text-left m-6">Sector</h3>
+            </div>
+            <div className="md:p-10 flex flex-col lg:flex-row items-center justify-around">
+                <svg ref={svgRef}></svg>
+                <div className="text-left" ref={legendRef}></div>
             </div>
         </div>
     );

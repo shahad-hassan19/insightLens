@@ -5,6 +5,7 @@ import { RxDashboard } from "react-icons/rx";
 import { CiSettings } from "react-icons/ci";
 import { IoBarChartOutline, IoHomeOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
+import { FiPlusSquare } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
@@ -74,6 +75,14 @@ export default function Sidebar() {
                             className= {`text-black font-medium text-xl inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
                             >
                                 <RxDashboard />Dashboard
+                            </Link>
+                        </li>
+                        <li className="py-2 px-3 mx-3">
+                            <Link
+                            to="/user/new-report"
+                            className= {`text-black font-medium text-xl inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
+                            >
+                                <FiPlusSquare />Add Reports
                             </Link>
                         </li>
                         <li className="py-2 px-3 mx-3">

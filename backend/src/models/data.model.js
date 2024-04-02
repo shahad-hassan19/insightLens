@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
 const dataSchema = new mongoose.Schema({
+    title: String,
     intensity: Number,
-    sector: String,
     insight: String,
+    sector: String,
+    pestle: String,
+    country: String,
     url: String,
     start_year: Number,
-    country: String,
-    pestle: String,
-    title: String,
 });
 
 export const Data = mongoose.model('Data', dataSchema);

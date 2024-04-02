@@ -17,6 +17,7 @@ import YearData from './Charts/YearData';
 import PestleData from './Charts/PestleData';
 import CountryData from './Charts/CountryData';
 import About from './pages/About/About.jsx'
+import NewReport from './components/NewReport/NewReport.jsx'
 
 
 const router = createBrowserRouter(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
           <Route path='' element={<UserHome/>} />
           <Route path='user-profile' element={<Admin/>} />
           <Route path='user-dashboard' element={<UserDashboard/>} />
+          <Route path='new-report' element={<NewReport/>} />
           <Route path='sector' element={<SectorData/>} />
           <Route path='intensity' element={<IntensityData/>} />
           <Route path='pestle' element={<PestleData/>} />

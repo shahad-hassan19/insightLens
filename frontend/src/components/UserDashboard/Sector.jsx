@@ -51,47 +51,39 @@ const Sector = () => {
 
 
     return (
-        <div onClick={handleClick} className="flex flex-col lg:flex-row gap-10 items-center lg:align-content-between p-5">
-                <div className="flex flex-col lg:w-1/2">
-                    <h3 className="text-2xl font-bold mb-10">Reports by Sector</h3>
-                    <svg ref={svgRef} className="self-center"></svg>
-                </div>
-                <div className="flex items-center lg:w-1/2">
+        <div onClick={handleClick} className="flex flex-col lg:flex-row items-center p-5">
+            <div className="flex flex-col lg:w-1/2">
+                <h3 className="text-2xl font-bold mb-10">Reports by Sector</h3>
+                <svg ref={svgRef} className="self-center"></svg>
+            </div>
+            <div className="flex items-center lg:w-1/2">
                 <div className="flex flex-col items-center justify-center">
-                <div className="w-full flex items-center justify-between">
-                    <div className=" font-medium">{localStorage.getItem("sector0")}</div>
-                    <div>{localStorage.getItem("percentage0")}%</div>
+                    <div className="w-full flex items-center justify-between">
+                        <div className=" font-medium">{localStorage.getItem("sector0")}</div>
+                        <div>{localStorage.getItem("percentage0")}%</div>
+                    </div>
+                    <div className="w-full flex items-center justify-between">
+                        <div className=" font-medium">{localStorage.getItem("sector1")}</div>
+                        <div>{localStorage.getItem("percentage1")}%</div>
+                    </div>
+                    <div className="w-full flex items-center justify-between">
+                        <div className=" font-medium">{localStorage.getItem("sector2")}</div>
+                        <div>{localStorage.getItem("percentage2")}%</div>
+                    </div>
+                    <div className="w-full flex items-center justify-between">
+                        <div className=" font-medium">{localStorage.getItem("sector3")}</div>
+                        <div>{localStorage.getItem("percentage3")}%</div>
+                    </div>
+                    <div className="w-full flex items-center justify-between">
+                        <div className=" font-medium">{localStorage.getItem("sector4")}</div>
+                        <div>{localStorage.getItem("percentage4")}%</div>
+                    </div>
+                    <div className="w-full flex items-center justify-between">
+                        <div className=" font-medium">{localStorage.getItem("sector5")}</div>
+                        <div>{localStorage.getItem("percentage5")}%</div>
+                    </div>
                 </div>
-                <div className="w-full flex items-center justify-between">
-                    <div className=" font-medium">{localStorage.getItem("sector1")}</div>
-                    <div>{localStorage.getItem("percentage1")}%</div>
-                </div>
-                <div className="w-full flex items-center justify-between">
-                    <div className=" font-medium">{localStorage.getItem("sector2")}</div>
-                    <div>{localStorage.getItem("percentage2")}%</div>
-                </div>
-                <div className="w-full flex items-center justify-between">
-                    <div className=" font-medium">{localStorage.getItem("sector3")}</div>
-                    <div>{localStorage.getItem("percentage3")}%</div>
-                </div>
-                <div className="w-full flex items-center justify-between">
-                    <div className=" font-medium">{localStorage.getItem("sector4")}</div>
-                    <div>{localStorage.getItem("percentage4")}%</div>
-                </div>
-                <div className="w-full flex items-center justify-between">
-                    <div className=" font-medium">{localStorage.getItem("sector5")}</div>
-                    <div>{localStorage.getItem("percentage5")}%</div>
-                </div>
-                {/* <div className="w-full flex items-center justify-between">
-                    <div className=" font-medium">{localStorage.getItem("sector6")}</div>
-                    <div>{localStorage.getItem("percentage6")}%</div>
-                </div>
-                <div className="w-full flex items-center justify-between">
-                    <div className=" font-medium">{localStorage.getItem("sector7")}</div>
-                    <div>{localStorage.getItem("percentage7")}%</div>
-                </div> */}
-                </div>
-                </div>
+            </div>
         </div>
     );
 };

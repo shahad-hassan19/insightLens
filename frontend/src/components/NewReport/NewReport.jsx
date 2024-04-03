@@ -24,9 +24,11 @@ export default function NewReport() {
     return (
         <div className="flex flex-col justify-between">
             <div>
-                <h3 className="text-3xl font-bold text-left m-6">Add New Report</h3>
+                <h3 className="text-3xl font-bold text-left m-6">
+                    Add New Report
+                </h3>
             </div>
-            <form className="flex flex-col">
+            <form className="flex flex-col w-4/5 md:w-1/2 lg:w-1/3 self-center">
                 <div className="flex flex-col mb-5">
                     <label className="text-sm font-medium mb-1 cursor-pointer" htmlFor="title">
                         Title
@@ -94,9 +96,9 @@ export default function NewReport() {
                     <label className="text-sm font-medium mb-1 cursor-pointer" htmlFor="start_year">
                         Start Year
                     </label>
-                    <input id="start_year" value={start_year} onChange={(e) => setYear(e.target.value)} type="number" className="bg-gray-700 text-gray-200 border-0 rounded-md p-2"/>
+                    <input id="start_year" value={start_year} onChange={(e) => setYear(e.target.value)} type="number" placeholder="Start Year" className="bg-gray-700 text-gray-200 border-0 rounded-md p-2"/>
                 </div>
-                <button onClick={handleSubmit} type="submit" className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150">
+                <button onClick={handleSubmit} type="submit" className="w-1/2 self-center bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150">
                     Add Report
                 </button>
             </form>

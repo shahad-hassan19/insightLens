@@ -64,7 +64,7 @@ const Intensity =() => {
                         .attr('transform', `translate(0,${height})`)
                         .call(d3.axisBottom(x));
 
-                        const legend = d3.select(legendRef.current)
+                    const legend = d3.select(legendRef.current)
                         .append('ul')
                         .selectAll('li')
                         .data(data)
@@ -90,7 +90,7 @@ const Intensity =() => {
 
 
     return (
-        <div onClick={handleClick} className="w-full flex flex-col items-center lg:align-content-between p-5">
+        <div onClick={handleClick} className="w-full flex flex-col items-center p-5">
         <div className="lg:self-start">
             <h3 className="text-2xl font-bold mb-10">Reports by Intensity</h3>
         </div>

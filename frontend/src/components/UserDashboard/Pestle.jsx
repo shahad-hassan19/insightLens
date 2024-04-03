@@ -84,7 +84,7 @@ const Pestle = () => {
     }
 
     return (
-        <div onClick={handleClick} className="w-full flex flex-col items-center lg:align-content-between p-5">
+        <div onClick={handleClick} className="w-full flex flex-col items-center p-5">
             <div className="lg:self-start">
                 <h3 className="text-2xl font-bold mb-10">Reports by Pestle</h3>
             </div>

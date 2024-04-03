@@ -44,7 +44,7 @@ export default function Sidebar() {
 
     return (
     <div className= {`h-full ${themeMode === "dark" ? "dark:text-white dark:bg-gray-900" : ""}`}>
-        <div className="h-full md:shadow-2xl">
+        <div className="h-full px-1 md:shadow-2xl">
             <nav>
                 <div className="flex justify-center items-center py-8">
                     <span className="text-2xl font-extrabold">
@@ -53,7 +53,7 @@ export default function Sidebar() {
                 </div>
                 <div>
                     <ul className="flex flex-col text-left">
-                        <li className="py-2 px-3 mx-3">
+                        <li className="py-2 px-3">
                             <Link
                             to="/user"
                             className= {`text-black font-medium text-xl inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
@@ -61,7 +61,7 @@ export default function Sidebar() {
                                 <IoHomeOutline />Home
                             </Link>
                         </li>
-                        <li className="py-2 px-3 mx-3">
+                        <li className="py-2 px-3">
                             <Link
                             to="/user/user-profile"
                             className= {`text-black font-medium text-xl inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
@@ -69,7 +69,7 @@ export default function Sidebar() {
                                 <CgProfile />Profile
                             </Link>
                         </li>
-                        <li className="py-2 px-3 mx-3">
+                        <li className="py-2 px-3">
                             <Link
                             to="/user/user-dashboard"
                             className= {`text-black font-medium text-xl inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
@@ -77,18 +77,18 @@ export default function Sidebar() {
                                 <RxDashboard />Dashboard
                             </Link>
                         </li>
-                        <li className="py-2 px-3 mx-3">
+                        <li className="py-2 px-3">
                             <Link
                             to="/user/new-report"
-                            className= {`text-black font-medium text-xl inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
+                            className= {`text-black font-medium text-xl min-w-max inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
                             >
                                 <FiPlusSquare />Add Reports
                             </Link>
                         </li>
-                        <li className="py-2 px-3 mx-3">
+                        <li className="py-2 px-3">
                             <span
                             onClick={toggleDataCharts}
-                            className= {`text-black font-medium text-xl inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
+                            className= {`text-black font-medium text-xl min-w-max inline-flex items-center cursor-pointer gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
                             >
                                 <IoBarChartOutline />Data Charts
                                 <span>
@@ -140,7 +140,7 @@ export default function Sidebar() {
                                     </ul>
                                 )}
                         </li>
-                        <li className="pt-2 md:pt-1 pb-2 px-3 mx-3">
+                        <li className="pt-2 md:pt-1 pb-2 px-3">
                             <Link
                             to="/user/settings"
                             className= {`text-black font-medium text-xl inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
@@ -148,7 +148,7 @@ export default function Sidebar() {
                                 <CiSettings />Settings
                             </Link>
                         </li>
-                        <li className="py-2 px-3 mx-3">
+                        <li className="py-2 px-3">
                             <Link
                             onClick={handleLogout}
                             className= {`text-black font-medium text-xl inline-flex items-center gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}

@@ -25,11 +25,11 @@ const Year = () => {
     fetchData()
 
     const setUpLine = (data) => {
-        const w = 100;
-        const h = 100;
-        const margin = { top: 4, right: 6, bottom: 6, left: 8 };
+        const w = 250;
+        const h = 250;
+        const margin = { top: 10, right: 15, bottom: 30, left: 35};
         const width = w - margin.left - margin.right;
-        const height = h - margin.top - margin.bottom - 4;
+        const height = h - margin.top - margin.bottom - 10;
 
         const svg = d3.select(svgRef.current)
                         .attr('width', w)
@@ -68,15 +68,15 @@ const Year = () => {
                         .call(d3.axisLeft(y));
 
                     svg.append("text")
-                        .attr("transform", `translate(${width / 2}, ${height + 7})`)
+                        .attr("transform", `translate(${width / 2}, ${height + 30})`)
                         .style("text-anchor", "middle")
                         .text("Year")
                         .attr('font-weight', 700)
 
                     svg.append("text")
                         .attr("transform", "rotate(-90)")
-                        .attr("y", 0 - margin.left)
-                        .attr("x", 0 - (height / 2 + 4))
+                        .attr("y", 0 - margin.left - 5)
+                        .attr("x", 0 - (height / 2))
                         .attr("dy", "1em")
                         .style("text-anchor", "middle")
                         .text("Year Counts")

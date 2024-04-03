@@ -6,6 +6,7 @@ import * as d3 from "d3";
 const YearData = () => {
 
     const svgRef = useRef()
+    const legendRef = useRef()
 
     const fetchData = async () => {
         try {
@@ -77,18 +78,30 @@ const YearData = () => {
                         .text("Year Counts")
                         .attr('font-weight', 700)
 
+                    const legend = d3.select(legendRef.current)
+                        .append('ul')
+                        .selectAll('li')
+                        .data(data)
+                        .enter()
+                        .append('li')
+                        .attr('class', 'legend-item')
+                        .style('list-style-type', 'none')
+                        .style('font-size', '14px')
+                        .style('margin-bottom', '5px');
+
+                    legend.append('span')
+                        .text(d => (`${d.year} : ${(d.yearCounts)} reports` ))
+                        .style('font-weight', 700)
+
     }
 
     return (
-        <div id="year-data" className="flex justify-between">
-            <div className="flex flex-col">
+        <div id="year-data" className="flex flex-col justify-between">
                 <div>
                     <h3 className="text-3xl font-bold text-left m-6">Start Year</h3>
                 </div>
-                <div className=" md:p-10 flex items-center justify-center">
-                    <svg ref={svgRef}></svg>
+                <div className="md:p-10 flex flex-col lg:flex-row items-center justify-around">
                 </div>
-            </div>
         </div>
     )
 }

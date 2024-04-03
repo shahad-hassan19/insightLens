@@ -31,11 +31,11 @@ const CountryData = () => {
     fetchData()
 
     return (
-            <div onClick={handleClick} className="flex flex-col items-center lg:items-stretch gap-10 align-content-between p-5">
-                <div>
-                    <h3 className="text-2xl font-bold">Reports by Countries</h3>
-                </div>
-                <div className="flex flex-col items-center justify-center">
+        <div onClick={handleClick} className="flex flex-col items-center lg:items-stretch gap-y-10 align-content-between p-5">
+            <div>
+                <h3 className="text-2xl font-bold">Reports by Countries</h3>
+            </div>
+            <div className="flex flex-col items-center justify-center">
                 <div className="w-full flex items-center justify-between">
                     <div className=" font-medium">{localStorage.getItem("country0")}</div>
                     <div>{localStorage.getItem("countryCounts0")}</div>
@@ -60,8 +60,8 @@ const CountryData = () => {
                     <div className=" font-medium">{localStorage.getItem("country5")}</div>
                     <div>{localStorage.getItem("countryCounts5")}</div>
                 </div>
-                </div>
             </div>
+        </div>
     )
 }
 

@@ -5,6 +5,7 @@ import * as d3 from "d3";
 const CountryData = () => {
 
     const svgRef = useRef()
+    const legendRef = useRef()
 
     const fetchData = async () => {
         try {
@@ -40,17 +41,39 @@ const CountryData = () => {
                 .attr('d', arcGenerator)
                 .attr('fill', d => color(d.data.country))
 
+
+                const legend = d3.select(legendRef.current)
+                .append('ul')
+                .selectAll('li')
+                .data(data)
+                .enter()
+                .append('li')
+                .attr('class', 'legend-item')
+                .style('list-style-type', 'none')
+                .style('font-size', '14px')
+                .style('margin-bottom', '5px');
+    
+            legend.append('span')
+                .attr('class', 'legend-color')
+                .style('display', 'inline-block')
+                .style('width', '12px')
+                .style('height', '12px')
+                .style('margin-right', '5px')
+                .style('background-color', d => color(d.country));
+    
+            legend.append('span')
+                .text(d => (`${d.country} : ${(d.countryCounts)}` ));
+
     }
 
     return (
-        <div id="country-data" className="flex justify-between">
-            <div className="flex flex-col">
-                <div>
-                    <h3 className="text-3xl font-bold text-left m-6">Country</h3>
-                </div>
-                <div className="md:p-10 flex items-center justify-center">
-                    <svg ref={svgRef}></svg>
-                </div>
+        <div id="country-data" className="flex flex-col justify-between">
+            <div>
+                <h3 className="text-3xl font-bold text-left m-6">Country</h3>
+            </div>
+            <div className="md:p-10 flex flex-col lg:flex-row items-center justify-around">
+                <svg ref={svgRef}></svg>
+                <div className="text-left" ref={legendRef}></div>
             </div>
         </div>
     )

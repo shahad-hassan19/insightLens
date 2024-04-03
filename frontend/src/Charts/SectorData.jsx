@@ -4,7 +4,6 @@ import * as d3 from "d3";
 
 const SectorData = () => {
     const svgRef = useRef();
-
     const legendRef = useRef()
 
     const fetchData = async () => {

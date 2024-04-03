@@ -15,10 +15,10 @@ export default function Navbar() {
 
     return (
         <div className="w-full">
-            <div className='w-full flex sm:justify-between border-gray-400 border-2 rounded-md p-1 md:px-4 my-5'>
-                <div className='flex items-center gap-2 md:p-4 rounded-md'>
+            <div className='w-full flex justify-between border-gray-400 border-2 rounded-md p-1 md:px-4 my-5'>
+                <div className='w-1/2 flex items-center gap-2 md:p-4 rounded-md'>
                     <CiSearch />
-                    <input type="search" placeholder='Search' className=" bg-transparent border-none focus:outline-none"/>
+                    <input type="search" placeholder='Search' className="w-full bg-transparent border-none focus:outline-none"/>
                 </div>
                 <div className='flex items-center md:gap-4 text-4xl'>
                     {themeMode==='dark' ? <CiLight onClick={changeTheme} /> : <CiDark onClick={changeTheme} />}

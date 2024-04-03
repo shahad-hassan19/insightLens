@@ -1,13 +1,12 @@
 export default function UserHome() {
     return (
-        <div id="user-home" className="flex justify-between">
-            <div className="flex flex-col">
-                <div>
-                    <h3 className="text-3xl font-bold text-left m-6">
-                        What is Data Visualization?
-                    </h3>
-                </div>
-                <div className="ml-5 p-5 flex flex-col items-center font-normal">
+        <div id="user-home" className="flex flex-col justify-between">
+            <div>
+                <h3 className="text-3xl font-bold text-left m-6">
+                    What is Data Visualization?
+                </h3>
+            </div>
+            <div className="ml-5 p-5 flex flex-col items-center font-normal">
                     <p className="mb-3">
                     Data visualization is the{" "}
                     <span className="font-medium">
@@ -42,7 +41,6 @@ export default function UserHome() {
                     to derive actionable insights from large and complex datasets,
                     driving innovation, decision-making, and problem-solving.
                     </p>
-                </div>
             </div>
         </div>
     );

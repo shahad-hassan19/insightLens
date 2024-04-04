@@ -198,6 +198,7 @@ const getCountry = asyncHandler( async(req, res) => {
     try {
         const documents = await Data.find();
         const countryCounts = {};
+        let others = 0;
 
         documents.forEach(doc => {
         let country = doc.country || "NA";
@@ -206,8 +207,18 @@ const getCountry = asyncHandler( async(req, res) => {
 
         const country_counts = [];
         for (let country in countryCounts){
-            country_counts.push({country: country, countryCounts: countryCounts[country]})
+            if (countryCounts[country] < 5) {
+                others += countryCounts[country];
+            } else {
+                let countryName = country === "United States of America" ? "USA" : country;
+                country_counts.push({country: countryName, countryCounts: countryCounts[country]})
+            }
         }
+
+        if (others > 0) {
+            country_counts.push({ country: "Others", countryCounts: others });
+        }
+
         return res.json(country_counts)
 
     } catch (err) {

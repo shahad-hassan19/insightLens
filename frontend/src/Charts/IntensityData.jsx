@@ -1,91 +1,101 @@
-import {useRef} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import * as d3 from "d3";
+import { Bar } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 const IntensityData =() => {
-    const svgRef = useRef()
+    const [intensityData, setIntensityData] = useState()
 
-    const fetchData = async() => {
-        try {
-            const response = await axios.get("http://localhost:4000/api/users/intensity");
-            const data = response.data;
-            setUpHistogram(data)
-        } catch (error) {
-            console.log(error)
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const intensityCount = []
+                const noOfReports = []
+                const response = await axios.get("http://localhost:4000/api/users/intensity");
+                const fetchedData = response.data
+                console.log(response.data)
+                intensityCount.push(...fetchedData.map(item => item.intensity))
+                noOfReports.push(...fetchedData.map(item => item.intensity_Counts))
+
+
+                const data ={
+                    labels: intensityCount,
+                    datasets: [{
+                            label: 'Reports',
+                            data: noOfReports,
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        },
+                    ]
+                }
+                setIntensityData(data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData()
+    }, [])
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: "Intensity",
+                    color: "red",
+                    font: {
+                        size: 14,
+                        weight: 900
+                    }
+                }
+            },
+            y: {
+                min: 0,
+                max:50,
+                title: {
+                    display: true,
+                    text: "No. of reports",
+                    color: "red",
+                    font: {
+                        size: 14,
+                        weight: 900
+                    }
+                }
+            }
         }
     }
-    fetchData()
-
-    const setUpHistogram = (data) => {
-        const w = 320;
-        const h = 320;
-        const margin = { top: 20, right: 30, bottom: 30, left: 40 };
-        const width = w - margin.left - margin.right;
-        const height = h - margin.top - margin.bottom - 20;
-
-        const svg = d3.select(svgRef.current)
-                        .attr('width', w)
-                        .attr('height', h)
-                        .append('g')
-                        .attr('transform', `translate(${margin.left},${margin.top})`);
-
-                    const x = d3.scaleBand()
-                        .domain(data.map(d => d.intensity))
-                        .range([0, width])
-                        .padding(0.1);
-
-                    const y = d3.scaleLinear()
-                        .domain([0, d3.max(data, d => d.intensity_Counts)])
-                        .nice()
-                        .range([height, 0]);
-
-                    svg.selectAll('.bar')
-                        .data(data)
-                        .enter()
-                        .append('rect')
-                        .attr('class', 'bar')
-                        .attr('x', d => x(d.intensity))
-                        .attr('y', d => y(d.intensity_Counts))
-                        .attr('width', x.bandwidth())
-                        .attr('height', d => height - y(d.intensity_Counts))
-                        .attr('fill', 'steelblue');
-
-                    svg.append('g')
-                        .attr('class', 'x-axis')
-                        .attr('transform', `translate(0,${height})`)
-                        .call(d3.axisBottom(x));
-
-                    svg.append('g')
-                        .attr('class', 'y-axis')
-                        .call(d3.axisLeft(y));
-
-                    svg.append("text")
-                        .attr("transform", `translate(${width / 2}, ${height + 35})`)
-                        .style("text-anchor", "middle")
-                        .text("Intensity")
-                        .attr('font-weight', 700)
-
-                    svg.append("text")
-                        .attr("transform", "rotate(-90)")
-                        .attr("y", 0 - margin.left)
-                        .attr("x", 0 - (height / 2 + 20))
-                        .attr("dy", "1em")
-                        .style("text-anchor", "middle")
-                        .text("Intensity Counts")
-                        .attr('font-weight', 700)
-    }
-
-
 
     return (
-        <div id="intensity-data" className="flex justify-between">
-            <div className="flex flex-col">
-                <div>
-                    <h3 className="text-3xl font-bold text-left m-6">Intensity</h3>
-                </div>
-                <div className="md:p-10 flex items-center justify-center">
-                    <svg ref={svgRef}></svg>
-                </div>
+        <div id="intensity-data" className="flex flex-col justify-between">
+            <div>
+                <h3 className="text-3xl font-bold text-left m-6">Intensity</h3>
+            </div>
+            <div className="lg:mx-20 lg:my-5 lg:p-10 w-full sm:min-w-max md:w-2/3 lg:w-3/5 flex self-center shadow-md bg-blue-100">
+                {
+                    intensityData && <Bar data={intensityData} options={options} />
+                }
             </div>
         </div>
     )

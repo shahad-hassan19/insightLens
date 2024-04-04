@@ -47,10 +47,10 @@ function Layout() {
               toggleIcon ? " block " : " hidden"
             }`}
           >
-            <div className="flex ml-1 sm:ml-5 mt-8">
+            <div className="flex ml-5 sm:ml-8 mt-8">
               <IoClose className="text-3xl" onClick={handleClick} />
             </div>
-            <div className=" flex items-center justify-center">
+            <div className=" flex items-center justify-center" onClick={handleClick}>
               <Sidebar />
             </div>
           </div>

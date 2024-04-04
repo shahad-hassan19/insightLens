@@ -11,13 +11,9 @@ import UserDashboard from './components/UserDashboard/UserDashboard';
 import Admin from './components/UserProfile/Admin';
 import Settings from './components/Settings/Settings.jsx'
 import UserHome from './components/UserHome/UserHome'
-import SectorData from './Charts/SectorData.jsx'
-import IntensityData from './Charts/IntensityData';
-import YearData from './Charts/YearData';
-import PestleData from './Charts/PestleData';
-import CountryData from './Charts/CountryData';
 import About from './pages/About/About.jsx'
 import NewReport from './components/NewReport/NewReport.jsx'
+import DataCharts from './components/DataCharts/DataCharts.jsx'
 
 
 const router = createBrowserRouter(
@@ -31,11 +27,7 @@ const router = createBrowserRouter(
           <Route path='user-profile' element={<Admin/>} />
           <Route path='user-dashboard' element={<UserDashboard/>} />
           <Route path='new-report' element={<NewReport/>} />
-          <Route path='sector' element={<SectorData/>} />
-          <Route path='intensity' element={<IntensityData/>} />
-          <Route path='pestle' element={<PestleData/>} />
-          <Route path='year' element={<YearData/>} />
-          <Route path='country' element={<CountryData/>} />
+          <Route path='data-charts' element={<DataCharts/>} />
           <Route path='settings' element={<Settings/>} />
         </Route>
         <Route path='about-us' element={<About/>} />

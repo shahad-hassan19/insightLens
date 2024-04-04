@@ -1,69 +1,64 @@
-import {useRef} from "react";
 import axios from "axios";
-import * as d3 from "d3";
+import { useEffect, useState } from "react";
+import { Line } from "react-chartjs-2";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Tooltip,
+    Filler,
+} from 'chart.js';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Tooltip,
+    Filler,
+);
 
 const CountryData = () => {
+    const [countryData, setCountryData] = useState()
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const noOfCountries = []
+                const noOfReports = []
+                const response = await axios.get("http://localhost:4000/api/users/country");
+                const fetchedData = response.data
+                noOfCountries.push(...fetchedData.map(item => item.country))
+                noOfReports.push(...fetchedData.map(item => item.countryCounts))
 
-    const svgRef = useRef()
-    const legendRef = useRef()
+                const data = {
+                    labels: noOfCountries,
+                    datasets: [{
+                        fill: true,
+                        label: 'Reports',
+                        data: noOfReports,
+                        borderColor: 'rgb(53, 162, 235)',
+                        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                    }]
+                }
+                setCountryData(data)
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get("http://localhost:4000/api/users/country");
-            const data = response.data;
-            setUpDonut(data)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData()
+    }, [])
 
-        } catch (error) {
-            console.log(error);
+    const options = {
+        responsive: true,
+        scales: {
+            y: {
+                min: 0,
+                max:50,
+            }
         }
-    };
-    fetchData()
-
-    const setUpDonut = (data) => {
-        const w = 320;
-        const h = 320;
-        const radius = w/2;
-        const svg = d3.select(svgRef.current)
-                        .attr('width', w)
-                        .attr('height', h)
-                        .append('g')
-                        .attr('transform', `translate(${w / 2},${h / 2})`);
-
-        const pie = d3.pie().value(d => d.countryCounts)
-        const color = d3.scaleOrdinal().domain(data.map(d => d.country)).range(d3.schemeCategory10)
-        const arcGenerator = d3.arc().innerRadius(radius - 100).outerRadius(radius)
-
-        const arcs = pie(data)
-
-        svg.selectAll()
-                .data(arcs)
-                .join('path')
-                .attr('d', arcGenerator)
-                .attr('fill', d => color(d.data.country))
-
-
-                const legend = d3.select(legendRef.current)
-                .append('ul')
-                .selectAll('li')
-                .data(data)
-                .enter()
-                .append('li')
-                .attr('class', 'legend-item')
-                .style('list-style-type', 'none')
-                .style('font-size', '14px')
-                .style('margin-bottom', '5px');
-    
-            legend.append('span')
-                .attr('class', 'legend-color')
-                .style('display', 'inline-block')
-                .style('width', '12px')
-                .style('height', '12px')
-                .style('margin-right', '5px')
-                .style('background-color', d => color(d.country));
-    
-            legend.append('span')
-                .text(d => (`${d.country} : ${(d.countryCounts)}` ));
-
     }
 
     return (
@@ -71,9 +66,10 @@ const CountryData = () => {
             <div>
                 <h3 className="text-3xl font-bold text-left m-6">Country</h3>
             </div>
-            <div className="md:p-10 flex flex-col lg:flex-row items-center justify-around">
-                <svg ref={svgRef}></svg>
-                <div className="text-left" ref={legendRef}></div>
+            <div className="lg:mx-20 lg:my-5 lg:p-10 w-full sm:min-w-max md:w-2/3 lg:w-3/5 flex self-center shadow-md bg-blue-100">
+                {
+                    countryData && <Line data={countryData} options={options}></Line>
+                }
             </div>
         </div>
     )

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { IoIosLogOut } from "react-icons/io";
-import { TiArrowSortedDown } from "react-icons/ti";
 import { RxDashboard } from "react-icons/rx";
 import { CiSettings } from "react-icons/ci";
 import { IoBarChartOutline, IoHomeOutline } from "react-icons/io5";
@@ -8,13 +7,11 @@ import { CgProfile } from "react-icons/cg";
 import { FiPlusSquare } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
 import useTheme from "../../context/useTheme";
 
 export default function Sidebar() {
     const navigate = useNavigate();
     const { themeMode } = useTheme()
-    const [isDataChartsOpen, setIsDataChartsOpen] = useState(false);
 
     const handleLogout = async () => {
         if (window.confirm("Are you sure you want to logout?")) {
@@ -35,10 +32,6 @@ export default function Sidebar() {
                 console.error("Error logging out:", error);
             }
         }
-    };
-
-    const toggleDataCharts = () => {
-        setIsDataChartsOpen(!isDataChartsOpen);
     };
 
 
@@ -86,59 +79,12 @@ export default function Sidebar() {
                             </Link>
                         </li>
                         <li className="py-2 px-3">
-                            <span
-                            onClick={toggleDataCharts}
+                            <Link
+                            to="/user/data-charts"
                             className= {`text-black font-medium text-xl min-w-max inline-flex items-center cursor-pointer gap-1 ${themeMode === "dark" ? "dark:text-white" : ""}`}
                             >
                                 <IoBarChartOutline />Data Charts
-                                <span>
-                                    {isDataChartsOpen ? <TiArrowSortedDown className="-rotate-90" />: <TiArrowSortedDown/>}
-                                </span>
-                            </span>
-                            {isDataChartsOpen && (
-                                    <ul className="pl-6">
-                                        <li className="py-1">
-                                            <Link
-                                                to="/user/sector"
-                                                className="font-medium text-lg"
-                                            >
-                                                Sector
-                                            </Link>
-                                        </li>
-                                        <li className="py-1">
-                                            <Link
-                                                to="/user/intensity"
-                                                className="font-medium text-lg"
-                                            >
-                                                Intensity
-                                            </Link>
-                                        </li>
-                                        <li className="py-1">
-                                            <Link
-                                                to="/user/pestle"
-                                                className="font-medium text-lg"
-                                            >
-                                                Pestle
-                                            </Link>
-                                        </li>
-                                        <li className="py-1">
-                                            <Link
-                                                to="/user/year"
-                                                className="font-medium text-lg"
-                                            >
-                                                Year
-                                            </Link>
-                                        </li>
-                                        <li className="pt-1">
-                                            <Link
-                                                to="/user/country"
-                                                className="font-medium text-lg"
-                                            >
-                                                Country
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                )}
+                            </Link>
                         </li>
                         <li className="pt-2 md:pt-1 pb-2 px-3">
                             <Link

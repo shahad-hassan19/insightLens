@@ -1,77 +1,86 @@
-import {useRef} from "react";
 import axios from "axios";
-import * as d3 from "d3";
+import { useEffect, useState } from "react";
+import { Pie } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    ArcElement,
+    Tooltip,
+    Legend
+} from 'chart.js';
+
+ChartJS.register(
+    ArcElement,
+    Tooltip,
+    Legend
+);
+
+
 
 const SectorData = () => {
-    const svgRef = useRef();
-    const legendRef = useRef()
+    const [sectorData, setSectorData] = useState()
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get("http://localhost:4000/api/users/sector");
-            const data = response.data;
-            setUpPie(data)
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const noOfSectors = []
+                const noOfReports = []
+                const response = await axios.get("http://localhost:4000/api/users/sector");
+                const fetchedData = response.data
+                console.log(response.data)
+                noOfSectors.push(...fetchedData.map(item => item.sector))
+                noOfReports.push(...fetchedData.map(item => item.percentage))
+                console.log(noOfSectors)
+                console.log(noOfReports)
 
-        } catch (error) {
-            console.log(error);
-        }
-    };
-    fetchData()
+                const data = {
+                    labels: noOfSectors,
+                    datasets: [{
+                        label: 'Reports',
+                        data: noOfReports,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(175, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 59, 64, 0.5)',
+                            'rgba(189, 51, 164, 0.5)',
+                            'rgba(31, 206, 173, 0.5)',
+                        ],
+                        borderColor:  [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(175, 192, 192, 0.5)',
+                            'rgba(153, 102, 255, 0.5)',
+                            'rgba(255, 59, 64, 0.5)',
+                            'rgba(189, 51, 164, 0.5)',
+                            'rgba(31, 206, 173, 0.5)',
+                        ],
+                    }]
+                }
+                setSectorData(data)
 
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData()
+    }, [])
 
-    const setUpPie = (data) => {
-        const w = 320;
-        const h = 320;
-        const radius = w/2;
-        const svg = d3.select(svgRef.current)
-        .attr('width', w)
-        .attr('height', h)
-        .append('g')
-        .attr('transform', `translate(${w / 2},${h / 2})`);
-
-        const myData = d3.pie().value(d => d.percentage)(data)
-        const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius)
-        const color = d3.scaleOrdinal().domain(data.map(d => d.sector)).range(d3.schemeSet2)
-
-        svg.selectAll()
-        .data(myData)
-        .join('path')
-        .attr('d', arcGenerator)
-        .attr('fill', d => color(d.data.sector))
-
-        const legend = d3.select(legendRef.current)
-            .append('ul')
-            .selectAll('li')
-            .data(data)
-            .enter()
-            .append('li')
-            .attr('class', 'legend-item')
-            .style('list-style-type', 'none')
-            .style('font-size', '14px')
-            .style('margin-bottom', '5px');
-
-        legend.append('span')
-            .attr('class', 'legend-color')
-            .style('display', 'inline-block')
-            .style('width', '12px')
-            .style('height', '12px')
-            .style('margin-right', '5px')
-            .style('background-color', d => color(d.sector));
-
-        legend.append('span')
-            .text(d => (`${d.sector} : ${(d.percentage)}%` ));
-
+    const options = {
+        responsive: true,
     }
-
 
     return (
         <div id="sector-data" className="flex flex-col justify-between">
             <div>
                 <h3 className="text-3xl font-bold text-left m-6">Sector</h3>
             </div>
-            <div className="md:p-10 flex flex-col lg:flex-row items-center justify-around">
-                <svg ref={svgRef}></svg>
-                <div className="text-left" ref={legendRef}></div>
+            <div className="lg:mx-20 lg:my-5 lg:p-10 w-full sm:min-w-max md:w-2/3 lg:w-3/5 flex self-center shadow-md bg-blue-100">
+                {
+                    sectorData && <Pie data={sectorData} options={options} />
+                }
             </div>
         </div>
     );

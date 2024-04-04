@@ -72,7 +72,7 @@ export default function Settings() {
                         </div>
                     </div>
                 </li>
-                <li className="mt-8 mb-4"><Link to="/about-us">About Us</Link></li>
+                <li className="mt-8 mb-4"><Link className="text-current" to="/about-us">About Us</Link></li>
 
                 <div  className="flex justify-between items-center gap-x-10">
                     <li>Deactivate account</li>

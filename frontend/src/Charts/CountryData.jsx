@@ -27,7 +27,7 @@ const CountryData = () => {
             try {
                 const noOfCountries = []
                 const noOfReports = []
-                const response = await axios.get("http://localhost:4000/api/users/country");
+                const response = await axios.get("https://insight-lens-backend.vercel.app/api/users/country");
                 const fetchedData = response.data
                 noOfCountries.push(...fetchedData.map(item => item.country))
                 noOfReports.push(...fetchedData.map(item => item.countryCounts))

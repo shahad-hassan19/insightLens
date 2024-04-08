@@ -13,7 +13,7 @@ export default function Admin() {
             throw new Error('No access token found');
           }
 
-          const response = await axios.get('http://localhost:4000/api/users/currentUser', {
+          const response = await axios.get('https://insight-lens-backend.vercel.app/api/users/currentUser', {
             headers: {
               Authorization: `${token}`
             }

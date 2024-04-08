@@ -30,6 +30,9 @@ const userSchema = new mongoose.Schema(
             unique: true,
             trim: true,
         },
+        profile: {
+            type: String,
+        },
         refreshToken: {
             type: String
         }

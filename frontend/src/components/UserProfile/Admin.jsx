@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import pic from '../../assets/profile-pic.png'
+import defaultPic from '../../assets/profile-pic.png'
 import axios from 'axios';
 
 export default function Admin() {
   const [userData, setUserData] = useState('')
+  const [profilePic, setProfilePic] = useState('');
 
     useEffect(() => {
       const fetchUserData = async () => {
@@ -19,9 +20,15 @@ export default function Admin() {
             }
           });
           setUserData(response.data.data);
+
+          if (response.data.data.profilePicture) {
+            setProfilePic(response.data.data.profilePicture);
+          } else {
+            setProfilePic(defaultPic);
+          }
+
         } catch (error) {
           console.error('Error fetching user data:', error);
-
         }
       };
       fetchUserData();
@@ -30,7 +37,7 @@ export default function Admin() {
     return(
       <div className='flex flex-col items-center'>
           <div className='m-5 flex self-center'>
-              <img src={pic} width={160} height={160} />
+              <img src={profilePic} width={160} height={160} />
           </div>
           <div className='mx-5 my-2 text-2xl shadow-lg flex'>
               <h6 className='font-medium mr-4'>Name: </h6>

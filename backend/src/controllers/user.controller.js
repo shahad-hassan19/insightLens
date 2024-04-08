@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Data } from './../models/data.model.js';
+import { uploadOnCloudinary } from '../utils/cloudinary.js';
 
 const generateAccessAndRefreshToken = async(userId) => {
     try {
@@ -246,6 +247,30 @@ const addNewReport = asyncHandler( async(req, res) => {
     }
 })
 
+const uploadUserProfile = asyncHandler( async(req, res) => {
+    const profileLocalPath = req.file?.path
+
+    const profile = await uploadOnCloudinary(profileLocalPath)
+
+    if(!profile.url){
+        throw new ApiError(400, "Error while uploading profile.")
+    }
+
+    await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                profile: profile.url
+            }
+        },
+        {new: true}
+    ).select(" --password ")
+
+    return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Profile uploaded successfully."))
+})
+
 const logoutUser = asyncHandler( async(req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
@@ -296,6 +321,7 @@ export {
     getPestle,
     getCountry,
     getSector,
+    uploadUserProfile,
     addNewReport,
     logoutUser,
     deleteUser

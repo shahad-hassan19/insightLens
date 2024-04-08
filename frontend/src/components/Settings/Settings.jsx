@@ -29,7 +29,7 @@ export default function Settings() {
                     throw new Error("No access token found");
                 }
 
-                axios.post("https://insight-lens-backend.vercel.app/api/users/deactivation", {},{
+                axios.post("http://localhost:4000/api/users/deactivation", {},{
                     headers: {
                         Authorization: `${token}`
                     }

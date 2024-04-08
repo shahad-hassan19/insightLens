@@ -14,7 +14,7 @@ const Pestle = () => {
 
     const fetchData = async() => {
         try {
-            const response = await axios.get("https://insight-lens-backend.vercel.app/api/users/pestle");
+            const response = await axios.get("http://localhost:4000/api/users/pestle");
             const data = response.data;
             setUpBar(data)
         } catch (error) {

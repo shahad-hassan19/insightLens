@@ -12,13 +12,14 @@ export default function Admin() {
   }
 
   const handleChange = (e) => {
-    const profileLocalPath = e.target.files[0]
+    const profilePicture = e.target.files[0]
+    console.log(profilePicture)
     const SetProfile = async() => {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('No access token found');
       }
-      await axios.post('https://insight-lens-backend.vercel.app/api/users/upload-profile', {profileLocalPath}, { headers:
+      await axios.post('https://insight-lens-backend.vercel.app/api/users/upload-profile', {profilePicture}, { headers:
     {
       Authorization: `${token}`,
       'Content-Type': 'multipart/form-data',

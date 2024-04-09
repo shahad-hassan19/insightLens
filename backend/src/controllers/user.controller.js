@@ -248,7 +248,7 @@ const addNewReport = asyncHandler( async(req, res) => {
 })
 
 const uploadUserProfile = asyncHandler( async(req, res) => {
-    const profileLocalPath = req.file?.path
+    const profileLocalPath = req.file?.profilePicture[0]
 
     const profile = await uploadOnCloudinary(profileLocalPath)
 

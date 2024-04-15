@@ -4,6 +4,7 @@ import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Data } from './../models/data.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
+import jwt from "jsonwebtoken";
 
 const generateAccessAndRefreshToken = async(userId) => {
     try {
@@ -40,6 +41,7 @@ const registerUser = asyncHandler( async(req, res) => {
         const user = await User.create({
             fullName,
             email,
+            profile: "",
             password,
             username: username.toLowerCase(),
         })
@@ -248,23 +250,35 @@ const addNewReport = asyncHandler( async(req, res) => {
 })
 
 const uploadUserProfile = asyncHandler( async(req, res) => {
-    const profileLocalPath = req.file?.profilePicture[0]
+    const token = req.headers.authorization
+    if (!token) {
+        throw new ApiError(400, "Unauthorized Access!")
+    }
 
-    const profile = await uploadOnCloudinary(profileLocalPath)
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const user = await User.findById(decodedToken._id);
 
-    if(!profile.url){
+    const profileLocalPath = req.file?.path
+
+    const url = await uploadOnCloudinary(profileLocalPath, "profile")
+
+    if(!url){
         throw new ApiError(400, "Error while uploading profile.")
     }
 
-    await User.findByIdAndUpdate(
-        req.user?._id,
+    const updatedUser = await User.findByIdAndUpdate(
+        user?._id,
         {
             $set: {
-                profile: profile.url
+                profile: url
             }
         },
         {new: true}
     ).select(" --password ")
+
+    if (!updatedUser) {
+        throw new ApiError(404, "User not found.");
+    }
 
     return res
     .status(200)

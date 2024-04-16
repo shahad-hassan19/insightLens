@@ -45,7 +45,7 @@ export default function Settings() {
                 </div>
                 <div className="ml-5 p-5 flex flex-col items-center text-xl font-medium">
                 <ul className="">
-                <li className="my-8 text-current"><Link to="/user/change-password">Change Password</Link></li>
+                <li className="my-8"><Link className="text-current" to="/user/change-password">Change Password</Link></li>
                 <li className="my-8">
                     <div className="flex items-center justify-between">
                         <span>Themes</span>

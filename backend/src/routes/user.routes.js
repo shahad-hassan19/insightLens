@@ -12,6 +12,7 @@ import {
     deleteUser,
     addNewReport,
     uploadUserProfile,
+    changeCurrentPassword,
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from './../middlewares/auth.middleware.js';
@@ -29,6 +30,7 @@ router.route("/pestle").get( getPestle)
 router.route("/country").get( getCountry)
 router.route("/addNewReport").post( addNewReport)
 router.route("/upload-profile").post(upload.single("profile"), uploadUserProfile)
+router.route("/change-password").post(verifyJWT, changeCurrentPassword)
 router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/deactivation").post(verifyJWT, deleteUser)
 

@@ -43,7 +43,6 @@ export default function Admin() {
               Authorization: `${token}`
             }
           });
-          console.log(response.data.data)
           setUserData(response.data.data);
 
           if (response.data.data.profile) {
@@ -68,7 +67,7 @@ export default function Admin() {
                 <button onClick={handleUpload}>Upload</button>
               </div> :
               <div className='m-5 flex flex-col gap-y-3 self-center'>
-                <img src={profilePic} width={160} height={160} className="rounded-full object-fit-cover" />
+                <img src={profilePic} width={160} height={100} className="rounded-full object-cover overflow-clip" />
                   <span onClick={handleClick} className='font-medium cursor-pointer'>Change Profile Picture</span>
               </div>
           }

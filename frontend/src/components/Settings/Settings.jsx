@@ -1,5 +1,4 @@
 import axios from "axios"
-import { useState } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import useTheme from './../../context/useTheme';
 
@@ -16,10 +15,6 @@ export default function Settings() {
     }
 
     const navigate = useNavigate()
-    const [isHeadingOpen, setIsHeadingOpen] = useState(false)
-    const toggleHeadings= () => {
-        setIsHeadingOpen(!isHeadingOpen)
-    }
 
     const deleteAccount = () => {
         if (window.confirm("Are you sure you want to delete this account permanently?")) {
@@ -50,7 +45,7 @@ export default function Settings() {
                 </div>
                 <div className="ml-5 p-5 flex flex-col items-center text-xl font-medium">
                 <ul className="">
-                <li className="my-8" onClick={toggleHeadings}>Change Password</li>
+                <li className="my-8"><Link to="/user/change-password">Change Password</Link></li>
                 <li className="my-8">
                     <div className="flex items-center justify-between">
                         <span>Themes</span>

@@ -14,6 +14,7 @@ import UserHome from './components/UserHome/UserHome'
 import About from './pages/About/About.jsx'
 import NewReport from './components/NewReport/NewReport.jsx'
 import DataCharts from './components/DataCharts/DataCharts.jsx'
+import ChangePassword from './components/ChangePassword/ChangePassword.jsx'
 
 
 const router = createBrowserRouter(
@@ -22,13 +23,14 @@ const router = createBrowserRouter(
         <Route path='' element={<HomePage/>} />
         <Route path='login' element={<LogIn/>} />
         <Route path='register' element={<Register/>} />
-        <Route path='/user/' element={<Layout/>} >
+        <Route path='user' element={<Layout/>} >
           <Route path='' element={<UserHome/>} />
           <Route path='user-profile' element={<Admin/>} />
           <Route path='user-dashboard' element={<UserDashboard/>} />
           <Route path='new-report' element={<NewReport/>} />
           <Route path='data-charts' element={<DataCharts/>} />
           <Route path='settings' element={<Settings/>} />
+          <Route path='change-password' element={<ChangePassword/>} />
         </Route>
         <Route path='about-us' element={<About/>} />
       </Route>

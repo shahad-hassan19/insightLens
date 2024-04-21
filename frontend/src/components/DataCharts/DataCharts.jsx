@@ -13,19 +13,19 @@ export default function DataCharts() {
     return (
         <div className="mt-10">
             <div className="flex justify-center align-items-center mb-12" >
-                            <button  className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Sector' ? 'border-b-2 border-yellow-300' : ''}`} onClick={()=>{
+                            <button  className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Sector' ? 'bg-blue-200 shadow-orange-400 shadow-md' : ''}`} onClick={()=>{
                                 setActiveChart("Sector");
                                 setActiveButton("Sector")}} >Sector</button>
-                            <button className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Intensity' ? 'border-b-2 border-yellow-300' : ''}`} onClick={()=>{
+                            <button className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Intensity' ? 'bg-blue-200 shadow-orange-400 shadow-md' : ''}`} onClick={()=>{
                                 setActiveChart("Intensity");
                                 setActiveButton("Intensity")}} >Intensity</button>
-                            <button className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Pestle' ? 'border-b-2 border-yellow-300' : ''}`} onClick={()=>{
+                            <button className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Pestle' ? 'bg-blue-200 shadow-orange-400 shadow-md' : ''}`} onClick={()=>{
                                 setActiveChart("Pestle")
                                 setActiveButton("Pestle")}} >Pestle</button>
-                            <button className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Year' ? 'border-b-2 border-yellow-300' : ''}`} onClick={()=>{
+                            <button className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Year' ? 'bg-blue-200 shadow-orange-400 shadow-md' : ''}`} onClick={()=>{
                                 setActiveChart("Year")
                                 setActiveButton("Year")}} >Year</button>
-                            <button className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Country' ? 'border-b-2 border-yellow-300' : ''}`} onClick={()=>{
+                            <button className={`text-orange-400 bg-transparent cursor-pointer pt-2 pb-1 px-1 sm:px-5 font-semibold ${activeButton === 'Country' ? 'bg-blue-200 shadow-orange-400 shadow-md' : ''}`} onClick={()=>{
                                 setActiveChart("Country")
                                 setActiveButton("Country")}} >Country</button>
             </div>

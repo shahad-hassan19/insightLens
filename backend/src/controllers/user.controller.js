@@ -287,14 +287,12 @@ const uploadUserProfile = asyncHandler( async(req, res) => {
 
 const changeCurrentPassword = asyncHandler( async(req, res) => {
     const { oldPassword, newPassword } = req.body
-    console.log(newPassword, oldPassword)
     const user = await User.findById(req.user?._id)
     const isCorrectPassword = await user.isPasswordCorrect(oldPassword)
 
     if(!isCorrectPassword){
         throw new ApiError(400, "Invalid old password.")
     }
-    console.log(isCorrectPassword)
 
     user.password = newPassword
     await user.save({validateBeforeSave: false})

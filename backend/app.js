@@ -1,10 +1,11 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 
-// app.use(cors({
-//     origin: process.env.CORS_ORIGIN,
-//     credentials: true
-// }))
+app.use(cors({
+    origin: ('https://insight-lens.vercel.app/'),
+    methods: ("GET", "POST"),
+    credentials: true
+}))
 
 
 const app = express()

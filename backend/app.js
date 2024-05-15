@@ -4,21 +4,16 @@ import cors from 'cors';
 
 const app = express()
 
-app.use(cors({
-    origin: ('https://insight-lens.vercel.app'),
-    methods: ("GET", "POST"),
-    credentials: true
-}))
-
-app.use((req, res, next) => {
+app.use(async(req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
     if (req.method === 'OPTIONS') {
-        res.sendStatus(200);
+        res.sendStatus(200).end()
+        return
     } else {
-        next();
+        return await next();
     }
 });
 

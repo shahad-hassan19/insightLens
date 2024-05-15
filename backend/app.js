@@ -1,14 +1,13 @@
 import express from 'express';
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'
+
+const app = express()
 
 app.use(cors({
     origin: ('https://insight-lens.vercel.app/'),
     methods: ("GET", "POST"),
     credentials: true
 }))
-
-
-const app = express()
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

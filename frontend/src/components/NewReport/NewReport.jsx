@@ -14,7 +14,7 @@ export default function NewReport() {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:4000/api/users/addNewReport', {title, intensity, insight, sector, pestle, country, url, start_year});
+            await axios.post('https://insight-lens-backend.vercel.app/api/users/addNewReport', {title, intensity, insight, sector, pestle, country, url, start_year});
             alert("Report added successfully")
         } catch (error) {
             console.log(error)

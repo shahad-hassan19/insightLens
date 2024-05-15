@@ -22,7 +22,7 @@ export default function Admin() {
       if (!token) {
         throw new Error('No access token found');
       }
-      await axios.post('http://localhost:4000/api/users/upload-profile', data, { headers:
+      await axios.post('https://insight-lens-backend.vercel.app/api/users/upload-profile', data, { headers:
     {
       Authorization: `${token}`,
     }})
@@ -38,7 +38,7 @@ export default function Admin() {
           if (!token) {
             throw new Error('No access token found');
           }
-          const response = await axios.get('http://localhost:4000/api/users/currentUser', {
+          const response = await axios.get('https://insight-lens-backend.vercel.app/api/users/currentUser', {
             headers: {
               Authorization: `${token}`
             }

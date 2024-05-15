@@ -13,7 +13,7 @@ export default function LogIn() {
     const handleSubmit = async(e) => {
         e.preventDefault()
         try {
-            const response = await axios.post('http://localhost:4000/api/users/login', {email, username, password})
+            const response = await axios.post('https://insight-lens-backend.vercel.app/api/users/login', {email, username, password})
             const token = response.data.data.accessToken;
             localStorage.setItem("token", token)
             navigate("/user");

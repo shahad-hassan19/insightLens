@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom';
+import PasswordChecklist from "react-password-checklist"
 
 export default function ChangePassword() {
 
@@ -54,6 +55,19 @@ export default function ChangePassword() {
                             onChange={(e) => setConfNewPassword(e.target.value)}
                         />
                     </div>
+                    <PasswordChecklist
+                        rules={["minLength","specialChar","number","capital","match"]}
+                        minLength={8}
+                        value={newPassword}
+                        valueAgain={confNewPassword}
+                        messages={{
+                            minLength: "Password must have atleast 8 characters.",
+                            specialChar: "Password must contain atleast 1 Special character.",
+                            number: "Password must contain atleast 1 Numerical character.",
+                            capital: "Password must contain atleast 1 Capital letter",
+                            match: "Passwords must match.",
+				}}
+			/>
                     <button onClick={handleClick} className="self-center md:self-start bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150">Change Password</button>
                 </div>
             </div>

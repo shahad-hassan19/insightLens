@@ -61,6 +61,8 @@ export default function LogIn() {
             </div>
             <div className='mt-2 mb-10 md:mb-16 text-center'>
                 <p>Not registered yet? <Link to="/register">Register</Link> here!</p>
+                <br></br>
+                <p>For convenience, you can use Username: <b>admin</b> and password: <b>password</b>.</p>
             </div>
             <Footer/>
         </div>

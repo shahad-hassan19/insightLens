@@ -1,12 +1,22 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
 import Footer from './../../components/Footer/Footer';
 
 
 export default function About() {
+
+    const navigate = useNavigate()
+
+    const handleClick = useCallback(() => {
+        navigate("/user/settings")
+    }, [navigate])
+
     return (
         <div className="flex flex-col h-full min-w-screen py-5 px-5 sm:px-20">
             <div className='flex items-center justify-start'>
-                    <button><Link className="text-white" to="/user/settings">Back</Link></button>
+                <button onClick={handleClick} className="text-white">
+                        Back
+                </button>
             </div>
             <div>
                 <h1 className='text-4xl font-semibold text-center mt-10'>InsightLens</h1>

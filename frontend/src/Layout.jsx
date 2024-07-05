@@ -1,6 +1,5 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Navbar from "./components/Navbar/Navbar";
 import { Outlet } from "react-router";
 import Footer from "./components/Footer/Footer";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -54,9 +53,8 @@ function Layout() {
               <Sidebar />
             </div>
           </div>
-          <Navbar />
         </div>
-        <div className="w-full mb-10">
+        <div className="w-full my-10">
           <Outlet />
         </div>
         <div className="w-full">

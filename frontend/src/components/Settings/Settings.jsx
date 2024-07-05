@@ -1,6 +1,8 @@
+import { useCallback } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios"
-import { Link, useNavigate } from 'react-router-dom';
 import useTheme from './../../context/useTheme';
+
 
 
 export default function Settings() {
@@ -16,7 +18,7 @@ export default function Settings() {
 
     const navigate = useNavigate()
 
-    const deleteAccount = () => {
+    const deleteAccount = useCallback(() => {
         if (window.confirm("Are you sure you want to delete this account permanently?")) {
             try {
                 const token = localStorage.getItem("token");
@@ -24,7 +26,7 @@ export default function Settings() {
                     throw new Error("No access token found");
                 }
 
-                axios.post("https://insight-lens-backend.vercel.app/api/users/deactivation", {},{
+                axios.post("http://localhost:4000/api/users/deactivation", {},{
                     headers: {
                         Authorization: `${token}`
                     }
@@ -35,7 +37,15 @@ export default function Settings() {
                 console.error("Error:", error);
             }
         }
-    }
+    }, [navigate])
+
+    const handlePassClick = useCallback(() => {
+        navigate("/user/change-password")
+    }, [navigate])
+
+    const handleAbout = useCallback(() => {
+        navigate("/about-us")
+    }, [navigate])
 
     return (
         <div id="settings" className="flex justify-between">
@@ -45,7 +55,7 @@ export default function Settings() {
                 </div>
                 <div className="ml-5 p-5 flex flex-col items-center text-xl font-medium">
                 <ul className="">
-                <li className="my-8"><Link className="text-current" to="/user/change-password">Change Password</Link></li>
+                <li className="my-8 cursor-pointer" onClick={handlePassClick}>Change Password</li>
                 <li className="my-8">
                     <div className="flex items-center justify-between">
                         <span>Themes</span>
@@ -67,7 +77,7 @@ export default function Settings() {
                         </div>
                     </div>
                 </li>
-                <li className="mt-8 mb-4"><Link className="text-current" to="/about-us">About Us</Link></li>
+                <li className="mt-8 mb-4 cursor-pointer" onClick={handleAbout}>About Us</li>
 
                 <div  className="flex justify-between items-center gap-x-10">
                     <li>Deactivate account</li>

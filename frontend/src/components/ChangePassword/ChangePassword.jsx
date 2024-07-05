@@ -12,7 +12,7 @@ export default function ChangePassword() {
         const handleClick = async() => {
             try {
                 const token = localStorage.getItem('token');
-                await axios.post('https://insight-lens-backend.vercel.app/api/users/change-password', {oldPassword, newPassword}, {
+                await axios.post('http://localhost:4000/api/users/change-password', {oldPassword, newPassword}, {
                     headers: {
                         Authorization: `${token}`
                     }

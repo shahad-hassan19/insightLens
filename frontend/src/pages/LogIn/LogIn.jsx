@@ -1,26 +1,39 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import axios from 'axios';
 import Footer from './../../components/Footer/Footer';
 export default function LogIn() {
     const navigate = useNavigate()
 
-    const [email, setEmail] = useState('')
-    const [username, setUserName] = useState('')
-    const [password, setPassword] = useState('')
+    const [formData, setFormData] = useState({
+        usernameOrEmail: '',
+        password: '',
+    });
     const [error, setError] = useState('');
+
+    const handleChange = useCallback((e) => {
+        const { id, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [id]: value }));
+    }, []);
 
     const handleSubmit = async(e) => {
         e.preventDefault()
+        const { usernameOrEmail, password } = formData;
+        const isEmail = usernameOrEmail.includes('@');
         try {
-            const response = await axios.post('https://insight-lens-backend.vercel.app/api/users/login', {email, username, password})
+            const response = await axios.post('http://localhost:4000/api/users/login', {
+                [isEmail ? 'email' : 'username']: usernameOrEmail,
+                password
+            })
             const token = response.data.data.accessToken;
             localStorage.setItem("token", token)
             navigate("/user");
         } catch (error) {
-            setError("Invalid username/email or password.");
+            setError(`Invalid ${isEmail ? 'email' : 'username'} or password.`);
         }
     }
+
+    const { usernameOrEmail, password } = formData;
 
     return (
         <div id="login" className="flex flex-col justify-between px-5 mt-10 md:pt-20 md:px-32">
@@ -30,30 +43,38 @@ export default function LogIn() {
                 </h1>
             </div>
             <div>
-                {error && <p className="text-center text-red-500">{error}</p>}
+                {error &&
+                    <p className="text-center text-red-500">
+                        {error}
+                    </p>}
             </div>
             <div className="m-4 md:mt-16 lg:mt-0 shadow-emerald-50 border-white ">
-                <form onSubmit={handleSubmit} className=" flex flex-col gap-4 items-center justify-around">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center justify-around">
                     <div className="flex flex-col">
-                        <label htmlFor='username_email' className="text-left font-semibold">
+                        <label htmlFor='usernameOrEmail' className="text-left font-semibold">
                             Username or Email:
                         </label>
-                        <input id='username_email' type="text" className="p-1 rounded-md bg-slate-500 text-gray-100" placeholder='Enter your username or email'
-                            value={(email || username)}
-                            onChange={(e) => {
-                                (setEmail(e.target.value) || setUserName(e.target.value))
-                            }}
+                        <input
+                            id='usernameOrEmail'
+                            type="text"
+                            className="p-1 rounded-md bg-slate-500 text-gray-100"
+                            placeholder='Enter your username or email'
+                            value={usernameOrEmail}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className="flex flex-col">
                         <label htmlFor='password' className="font-semibold text-left">
                             Password:
                         </label>
-                        <input id='password' type="password" className="p-1 rounded-md bg-slate-500 text-gray-100" placeholder="Enter your password"
+                        <input
+                            id='password'
+                            type="password"
+                            minLength={8}
+                            className="p-1 rounded-md bg-slate-500 text-gray-100"
+                            placeholder="Enter your password"
                             value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value)
-                            }}
+                            onChange={handleChange}
                         />
                     </div>
                     <button className="w-28 text-white">LogIn</button>

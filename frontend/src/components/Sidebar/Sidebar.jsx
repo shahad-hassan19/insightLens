@@ -8,12 +8,13 @@ import { FiPlusSquare } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useTheme from "../../context/useTheme";
+import { useCallback } from "react";
 
 export default function Sidebar() {
     const navigate = useNavigate();
     const { themeMode } = useTheme()
 
-    const handleLogout = async () => {
+    const handleLogout = useCallback( async () => {
         if (window.confirm("Are you sure you want to logout?")) {
             try {
                 const token = localStorage.getItem("token");
@@ -21,7 +22,7 @@ export default function Sidebar() {
                     throw new Error("No access token found");
                 }
 
-                await axios.post("https://insight-lens-backend.vercel.app/api/users/logout", {},{
+                await axios.post("http://localhost:4000/api/users/logout", {},{
                     headers: {
                         Authorization: `${token}`
                     }
@@ -32,7 +33,7 @@ export default function Sidebar() {
                 console.error("Error logging out:", error);
             }
         }
-    };
+    }, [navigate])
 
 
     return (

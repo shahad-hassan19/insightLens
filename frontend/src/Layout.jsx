@@ -33,7 +33,7 @@ function Layout() {
         <Sidebar />
       </div>
       <div id="right-container" className="flex flex-col items-center w-full mx-5 lg:mx-10">
-        <div className="w-full flex items-center gap-1 sm:gap-5">
+        <div className="w-full mt-10 flex items-center justify-between gap-1 sm:gap-5">
           <div onClick={handleClick} className="md:hidden">
             {toggleIcon ? (
               ""
@@ -42,7 +42,7 @@ function Layout() {
             )}
           </div>
           <div
-            className={`md:hidden overflow-y-auto z-50 top-0 left-0 fixed w-full h-full ${themeMode === "dark" ? "dark:bg-gray-900" : "bg-white"} ${
+            className={`md:hidden overflow-y-auto z-50 top-2 left-0 fixed w-full h-full ${themeMode === "dark" ? "dark:bg-gray-900" : "bg-white"} ${
               toggleIcon ? " block " : " hidden"
             }`}
           >
@@ -53,6 +53,7 @@ function Layout() {
               <Sidebar />
             </div>
           </div>
+          <span className="block lg:hidden text-2xl font-extrabold mr-3">InsightLens</span>
         </div>
         <div className="w-full my-10">
           <Outlet />

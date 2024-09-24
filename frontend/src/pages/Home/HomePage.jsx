@@ -1,7 +1,13 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Footer from '../../components/Footer/Footer';
 
+
 export default function HomePage() {
+
+    const navigate = useNavigate()
+
     return (
         <div className="flex flex-col h-screen min-w-screen justify-between px-5 sm:px-10">
             <nav className='w-full flex items-center justify-between lg:px-10 py-5'>
@@ -10,24 +16,18 @@ export default function HomePage() {
                         InsightLens
                     </span>
                 </div>
-                <div className='flex flex-col sm:flex-row items-center gap-y-3'>
-                    <button className='mr-3'>
-                        <Link
-                            to="/login"
-                            className='text-white'
-                        >
-                            LogIn
-                        </Link>
-                    </button>
-                    <button>
-                        <Link
-                            to="/register"
-                            className='text-white'
-                        >
-                            Register
-                        </Link>
-                    </button>
-                </div>
+                <Stack spacing={2} direction="row">
+                    <Button variant='contained'
+                        onClick={() => navigate("/login")}
+                    >
+                        LogIn
+                    </Button>
+                    <Button variant='contained'
+                        onClick={() => navigate("/Register")}
+                    >
+                        Register
+                    </Button>
+                </Stack>
             </nav>
             <div className='flex flex-col items-center mt-16 mb-10 md:mt-40 md:mb-28'>
                 <h1 className='text-6xl md:text-8xl font-semibold'>

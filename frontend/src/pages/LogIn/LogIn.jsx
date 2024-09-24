@@ -1,6 +1,9 @@
+import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCallback, useState } from 'react';
-import axios from 'axios';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import Footer from './../../components/Footer/Footer';
 export default function LogIn() {
     const navigate = useNavigate()
@@ -21,7 +24,7 @@ export default function LogIn() {
         const { usernameOrEmail, password } = formData;
         const isEmail = usernameOrEmail.includes('@');
         try {
-            const response = await axios.post('https://insight-lens-backend.vercel.app/api/users/login', {
+            const response = await axios.post('http://localhost:4000/api/users/login', {
                 [isEmail ? 'email' : 'username']: usernameOrEmail,
                 password
             })
@@ -49,7 +52,7 @@ export default function LogIn() {
                     </p>}
             </div>
             <div className="m-4 md:mt-16 lg:mt-0 shadow-emerald-50 border-white ">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center justify-around">
+            {/* <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center justify-around">
                     <div className="flex flex-col">
                         <label htmlFor='usernameOrEmail' className="text-left font-semibold">
                             Username or Email:
@@ -78,7 +81,24 @@ export default function LogIn() {
                         />
                     </div>
                     <button className="w-28 text-white">LogIn</button>
-                </form>
+                </form> */}
+                <Box
+                    component="form"
+                    sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+                    noValidate
+                    autoComplete="off"
+                    className='flex flex-col items-center justify-center'
+                >
+                    <TextField id="usernameOrEmail" label="Username Or Email" variant="outlined"
+                        value={usernameOrEmail}
+                        onChange={handleChange}
+                    />
+                    <TextField id="password" label="Password" variant="outlined"
+                        value={password}
+                        onChange={handleChange}
+                    />
+                    <Button variant='contained' onClick={handleSubmit}>LogIn</Button>
+                </Box>
             </div>
             <div className='mt-2 mb-10 md:mb-16 text-center'>
                 <p>Not registered yet? <Link to="/register">Register</Link> here!</p>

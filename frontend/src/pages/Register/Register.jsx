@@ -1,6 +1,9 @@
-import { useState, useCallback } from "react";
 import axios from 'axios';
+import { useState, useCallback } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import Footer from './../../components/Footer/Footer';
 
 export default function Register() {
@@ -22,7 +25,7 @@ export default function Register() {
         }
 
         try {
-            await axios.post('https://insight-lens-backend.vercel.app/api/users/register', formData);
+            await axios.post('http://localhost:4000/api/users/register', formData);
             navigate("/login")
         } catch (error) {
             setError("Username or Email already exists.")
@@ -37,7 +40,7 @@ export default function Register() {
     const { fullName, username, email, password } = formData;
 
     return (
-        <div id="register" className="px-5 mt-10 md:pt-20 md:px-32">
+        <div id="register" className="px-5 mt-10 md:pt-10 md:px-32">
             <div className="md:h-24">
                 <h1 className="font-semibold text-center text-3xl md:text-6xl">
                     Welcome to InsightLens!
@@ -50,7 +53,7 @@ export default function Register() {
                 </p>}
             </div>
             <div className="m-4 md:mt-16 lg:mt-0 shadow-emerald-50 border-white ">
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center justify-around">
+                {/* <form onSubmit={handleSubmit} className="flex flex-col gap-4 items-center justify-around">
                     <div className="flex flex-col">
                         <label htmlFor="fullName" className="font-semibold text-left">
                             Full Name:
@@ -107,7 +110,32 @@ export default function Register() {
                         />
                     </div>
                     <button className="w-28 text-white">Register</button>
-                </form>
+                </form> */}
+                <Box
+                    component="form"
+                    sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+                    noValidate
+                    autoComplete="off"
+                    className='flex flex-col items-center justify-center'
+                >
+                    <TextField id="fullName" label="FullName" variant="outlined"
+                        value={fullName}
+                        onChange={handleChange}
+                    />
+                    <TextField id="username" label="Username" variant="outlined"
+                        value={username}
+                        onChange={handleChange}
+                    />
+                    <TextField id="email" label="Email" variant="outlined"
+                        value={email}
+                        onChange={handleChange}
+                    />
+                    <TextField id="password" label="Password" variant="outlined"
+                        value={password}
+                        onChange={handleChange}
+                    />
+                    <Button variant='contained' onClick={handleSubmit}>Register</Button>
+                </Box>
             </div>
             <div className="mt-2 mb-10 md:mb-20 text-center">
                 <p>

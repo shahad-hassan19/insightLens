@@ -22,7 +22,7 @@ export default function Sidebar() {
                     throw new Error("No access token found");
                 }
 
-                await axios.post("https://insight-lens-backend.vercel.app/api/users/logout", {},{
+                await axios.post("http://localhost:4000/api/users/logout", {},{
                     headers: {
                         Authorization: `${token}`
                     }

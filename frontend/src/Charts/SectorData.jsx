@@ -24,7 +24,7 @@ const SectorData = () => {
             try {
                 const noOfSectors = []
                 const noOfReports = []
-                const response = await axios.get("https://insight-lens-backend.vercel.app /api/users/sector");
+                const response = await axios.get("https://insight-lens-backend.vercel.app/api/users/sector");
                 const fetchedData = response.data
                 console.log(response.data)
                 noOfSectors.push(...fetchedData.map(item => item.sector))

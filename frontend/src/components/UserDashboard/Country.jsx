@@ -9,7 +9,7 @@ const CountryData = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get("https://insight-lens-backend.vercel.app /api/users/country");
+            const response = await axios.get("https://insight-lens-backend.vercel.app/api/users/country");
             const data = response.data;
             data.sort((a, b) => {
                 if (a.countryCounts < b.countryCounts) {

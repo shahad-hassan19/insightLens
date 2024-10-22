@@ -22,7 +22,7 @@ export const SidebarRoutes = () => {
                     throw new Error("No access token found");
                 }
 
-                await axios.post("https://insight-lens-backend.vercel.app /api/users/logout", {}, {
+                await axios.post("https://insight-lens-backend.vercel.app/api/users/logout", {}, {
                     headers: {
                         Authorization: `${token}`,
                     },

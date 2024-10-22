@@ -70,7 +70,7 @@ export default function ChangePassword() {
                 })
                 // toast.success('Password changed successfully!')
                 setLoading(false)
-                navigate("/dashboard")
+                navigate("/user")
             } catch (error) {
                 setMessage(error.response?.data?.message)
                 setLoading(false)

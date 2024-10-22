@@ -1,10 +1,12 @@
+import bcrypt from 'bcrypt';
+import jwt from "jsonwebtoken";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Data } from './../models/data.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
-import jwt from "jsonwebtoken";
+
 
 const generateAccessAndRefreshToken = async(userId) => {
     try {
@@ -40,7 +42,6 @@ const registerUser = asyncHandler( async(req, res) => {
 
         const options = {
             httpOnly: true,
-            // secure: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'None',
             domain: process.env.ENV === 'production' ? process.env.CORS_ORIGIN : process.env.CORS_LOCAL
@@ -94,9 +95,8 @@ const loginUser = asyncHandler( async(req, res) => {
 
     const options = {
         httpOnly: true,
-        // secure: true
         secure: process.env.ENV === 'production',
-        sameSite: 'Lax',
+        sameSite: 'None',
         domain: process.env.ENV === 'production' ? process.env.CORS_ORIGIN : process.env.CORS_LOCAL
     }
 

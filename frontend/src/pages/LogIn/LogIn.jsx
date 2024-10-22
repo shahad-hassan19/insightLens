@@ -27,6 +27,8 @@ export default function LogIn() {
             const response = await axios.post('https://insight-lens-backend.vercel.app/api/users/login', {
                 [isEmail ? 'email' : 'username']: usernameOrEmail,
                 password
+            }, {
+                withCredentials: true
             })
             const token = response.data.data.accessToken;
             localStorage.setItem("token", token)

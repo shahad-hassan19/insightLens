@@ -38,6 +38,14 @@ const registerUser = asyncHandler( async(req, res) => {
             throw new ApiError(409, "Username or email already exists.")
         }
 
+        const options = {
+            httpOnly: true,
+            // secure: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'None',
+            domain: process.env.ENV === 'production' ? process.env.CORS_ORIGIN : process.env.CORS_LOCAL
+        }
+
         const user = await User.create({
             fullName,
             email,
@@ -53,6 +61,8 @@ const registerUser = asyncHandler( async(req, res) => {
 
         return res
         .status(201)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
         .json( new ApiResponse(200, newUser, "User registered successfully!"))
 })
 
@@ -85,7 +95,10 @@ const loginUser = asyncHandler( async(req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        // secure: true
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'None',
+        domain: process.env.ENV === 'production' ? process.env.CORS_ORIGIN : process.env.CORS_LOCAL
     }
 
     return res
@@ -94,7 +107,7 @@ const loginUser = asyncHandler( async(req, res) => {
     .cookie("refreshToken", refreshToken, options)
     .json(
         new ApiResponse(200, {
-            user: loggedInUser, accessToken, refreshToken
+            user: loggedInUser
         },
         "User Logged in successfully."
         )

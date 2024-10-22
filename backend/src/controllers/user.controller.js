@@ -68,7 +68,6 @@ const registerUser = asyncHandler( async(req, res) => {
 
 const loginUser = asyncHandler( async(req, res) => {
     const {username, email, password} = req.body;
-    console.log(password)
 
     if(!(username  || email)){
         throw new ApiError(404, "Username or email required!")
@@ -107,7 +106,7 @@ const loginUser = asyncHandler( async(req, res) => {
     .cookie("refreshToken", refreshToken, options)
     .json(
         new ApiResponse(200, {
-            user: loggedInUser
+            user: loggedInUser, accessToken, refreshToken
         },
         "User Logged in successfully."
         )

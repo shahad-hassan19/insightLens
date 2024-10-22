@@ -26,7 +26,7 @@ export default function Settings() {
                     throw new Error("No access token found");
                 }
 
-                axios.post("http://localhost:4000/api/users/deactivation", {},{
+                axios.post("https://insight-lens-backend.vercel.app /api/users/deactivation", {},{
                     headers: {
                         Authorization: `${token}`
                     }
@@ -44,8 +44,8 @@ export default function Settings() {
     }, [navigate])
 
     const handleAbout = useCallback(() => {
-        navigate("/about-us")
-    }, [navigate])
+        window.alert("We are working on this page.")
+    }, [])
 
     return (
         <div id="settings" className="flex justify-between">

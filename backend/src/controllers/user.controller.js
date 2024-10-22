@@ -287,20 +287,53 @@ const uploadUserProfile = asyncHandler( async(req, res) => {
 })
 
 const changeCurrentPassword = asyncHandler( async(req, res) => {
-    const { oldPassword, newPassword } = req.body
-    const user = await User.findById(req.user?._id)
-    const isCorrectPassword = await user.isPasswordCorrect(oldPassword)
+    try {
+        const { prevPassword, newPassword, confNewPassword } = req.body
 
-    if(!isCorrectPassword){
-        throw new ApiError(400, "Invalid old password.")
+        if (prevPassword.length < 8) {
+            throw new ApiError(400, "Old password must be 8 characters long.")
+        }
+
+        if (newPassword.length < 8) {
+            throw new ApiError(400, "New password must be 8 characters long.")
+        }
+
+        if (confNewPassword.length < 8) {
+            throw new ApiError(400, "New password must be 8 characters long.")
+        }
+
+        // Check if password matches
+        if(newPassword !== confNewPassword){
+            throw new ApiError(400, "Passwords do not match!")
+        }
+
+        const user = await User.findById(req.user?._id)
+
+        const correctPassword = await user.isPasswordCorrect(prevPassword)
+        if(!correctPassword){
+            throw new ApiError(400, "Old Password in not Correct!")
+        }
+
+        const hashedPass = await bcrypt.hash(newPassword, 10);
+
+        const updatedUser = await User.findOneAndUpdate( user._id ,{
+            $set: {
+                password: hashedPass
+            }
+        })
+
+        if(!updatedUser){
+            throw new ApiError(500, "Something went wrong, while changing password.")
+        }
+
+        return res
+        .status(201)
+        .json( new ApiResponse(200, updatedUser, "Password changed successfully!"))
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'Internal Server Error'})
     }
-
-    user.password = newPassword
-    await user.save({validateBeforeSave: false})
-
-    return res
-    .status(200)
-    .json(new ApiResponse(200, {}, "Password changed successfully."))
 })
 
 const logoutUser = asyncHandler( async(req, res) => {

@@ -21,7 +21,7 @@ export default function NewReport() {
 
     const handleSubmit = async () => {
         try {
-            await axios.post('http://localhost:4000/api/users/addNewReport', formData);
+            await axios.post('https://insight-lens-backend.vercel.app /api/users/addNewReport', formData);
             alert("Report added successfully")
         } catch (error) {
             console.log(error)
@@ -55,7 +55,7 @@ export default function NewReport() {
                     Add New Report
                 </h3>
             </div>
-            <form onSubmit={handleSubmit} className="flex flex-col w-4/5 md:w-1/2 lg:w-1/3 self-center">
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-10">
             {inputFields.map(({ id, label, type, placeholder }) => (
                     <div className="flex flex-col mb-5" key={id}>
                         <label className="text-sm font-medium mb-1 cursor-pointer" htmlFor={id}>
@@ -95,9 +95,11 @@ export default function NewReport() {
                     </p>
                 )}
 
-                <button type="submit" disabled={!allFieldsFilled()} className="w-1/2 self-center bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150">
-                    Add Report
-                </button>
+                <div className="flex justify-center md:justify-end">
+                    <button type="submit" disabled={!allFieldsFilled()} className=" w-1/2 bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-1 px-2 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150">
+                        Add Report
+                    </button>
+                </div>
             </form>
         </div>
     )

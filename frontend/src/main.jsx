@@ -11,7 +11,6 @@ import UserDashboard from './components/UserDashboard/UserDashboard';
 import Admin from './components/UserProfile/Admin';
 import Settings from './components/Settings/Settings.jsx'
 import UserHome from './components/UserHome/UserHome'
-import About from './pages/About/About.jsx'
 import NewReport from './components/NewReport/NewReport.jsx'
 import DataCharts from './components/DataCharts/DataCharts.jsx'
 import ChangePassword from './components/ChangePassword/ChangePassword.jsx'
@@ -32,7 +31,6 @@ const router = createBrowserRouter(
           <Route path='settings' element={<Settings/>} />
           <Route path='change-password' element={<ChangePassword/>} />
         </Route>
-        <Route path='about-us' element={<About/>} />
       </Route>
   )
 )

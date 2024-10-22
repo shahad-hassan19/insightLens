@@ -1,31 +1,82 @@
 import axios from "axios"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { useNavigate } from 'react-router-dom';
-import PasswordChecklist from "react-password-checklist"
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField'
+
 
 export default function ChangePassword() {
 
     const navigate = useNavigate()
-    const [ oldPassword, setOldPassword ] = useState('')
-    const [ newPassword, setNewPassword ] = useState('')
-    const [ confNewPassword, setConfNewPassword ] = useState('')
-        const handleClick = async() => {
-            try {
-                const token = localStorage.getItem('token');
-                await axios.post('http://localhost:4000/api/users/change-password', {oldPassword, newPassword}, {
-                    headers: {
-                        Authorization: `${token}`
-                    }
-                })
 
-                if(newPassword === confNewPassword){
-                    navigate("/user/user-profile")
-                    alert("Password changed successfully!")
-                }
-            } catch (error) {
-                console.error('Internal Server Error', error);
+        const [formState, setFormState] = useState({
+        prevPassword: '',
+        newPassword: '',
+        confNewPassword: '',
+    });
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState(null);
+
+    const handleChange = useCallback((e) => {
+        const { id, value } = e.target;
+        setFormState((prevData) => ({ ...prevData, [id]: value }));
+    }, []);
+
+        const handleClick = async(e) => {
+            e.preventDefault()
+            setLoading(true)
+
+            // Check if any field is empty
+            const hasEmptyField = Object.values(formState).some(
+                field => field === undefined || field.trim() === ""
+            );
+            if (hasEmptyField) {
+                setMessage("All fields are required.");
+                setLoading(false)
+                return;
             }
-        }
+
+            // Check if all fields are filled and password is 8 characters long
+            if (!hasEmptyField && formState.prevPassword.length < 8) {
+                setMessage("Old Password must be at least 8 characters long.");
+                setLoading(false)
+                return;
+            }
+
+            if (!hasEmptyField && formState.newPassword.length < 8) {
+                setMessage("New Password must be at least 8 characters long.");
+                setLoading(false)
+                return;
+            }
+
+            if (!hasEmptyField && formState.confNewPassword.length < 8) {
+                setMessage("New password must be at least 8 characters long.");
+                setLoading(false)
+                return;
+            }
+
+            // Check if password matches
+            if(formState.newPassword !== formState.confNewPassword){
+                setMessage("New passwords do not match!");
+                setLoading(false)
+                return;
+            }
+            setMessage('')
+            const { prevPassword, newPassword, confNewPassword } = formState;
+            try {
+                await axios.put("https://insight-lens-backend.vercel.app /api/users/change-password", { prevPassword, newPassword, confNewPassword }, {
+                    withCredentials: true
+                })
+                // toast.success('Password changed successfully!')
+                setLoading(false)
+                navigate("/dashboard/my-profile")
+            } catch (error) {
+                setMessage(error.response?.data?.message)
+                setLoading(false)
+                console.log("Error while changing password: ", error)
+            }
+        };
 
     return (
         <div id="change-password" className="flex justify-between">
@@ -33,7 +84,8 @@ export default function ChangePassword() {
                 <div>
                     <h3 className="text-3xl font-bold text-left m-6">Change Password</h3>
                 </div>
-                <div className="ml-5 p-5 flex flex-col gap-y-5 text-xl font-medium">
+                {/* <Toaster toastOptions={{duration: 4000}} /> */}
+                {/* <div className="ml-5 p-5 flex flex-col gap-y-5 text-xl font-medium">
                     <div className="flex flex-col md:flex-row gap-y-2 md:gap-x-4">
                         <span htmlFor="old-password">Old Password:</span>
                         <input id="old-password" type="password" className="p-1 rounded-md bg-slate-500 text-base text-gray-100" autoComplete="current-password" placeholder="Enter old password"
@@ -55,21 +107,39 @@ export default function ChangePassword() {
                             onChange={(e) => setConfNewPassword(e.target.value)}
                         />
                     </div>
-                    <PasswordChecklist
-                        rules={["minLength","specialChar","number","capital","match"]}
-                        minLength={8}
-                        value={newPassword}
-                        valueAgain={confNewPassword}
-                        messages={{
-                            minLength: "Password must have atleast 8 characters.",
-                            specialChar: "Password must contain atleast 1 Special character.",
-                            number: "Password must contain atleast 1 Numerical character.",
-                            capital: "Password must contain atleast 1 Capital letter",
-                            match: "Passwords must match.",
-				}}
-			/>
                     <button onClick={handleClick} className="self-center md:self-start bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150">Change Password</button>
-                </div>
+                </div> */}
+                <Box
+                    component="form"
+                    sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+                    noValidate
+                    autoComplete="off"
+                    className='flex flex-col items-center justify-center'
+                >
+                    <TextField id="prevPassword" label="Old Password" variant="outlined"
+                        value={formState.prevPassword}
+                        onChange={handleChange}
+                    />
+                    <TextField id="newPassword" label="New Password" variant="outlined"
+                        value={formState.newPassword}
+                        onChange={handleChange}
+                    />
+                    <TextField id="confNewPassword" label="Confirm New Password" variant="outlined"
+                        value={formState.confNewPassword}
+                        onChange={handleChange}
+                    />
+                    {
+                        message &&
+                        <p className="text-red-500 mt-4">
+                            {message}
+                        </p>
+                    }
+                    <Button variant='contained' disabled={loading} onClick={handleClick}>
+                        {
+                            loading ? "Saving..." : "Change Password"
+                        }
+                    </Button>
+                </Box>
             </div>
         </div>
     )

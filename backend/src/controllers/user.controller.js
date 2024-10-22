@@ -96,7 +96,7 @@ const loginUser = asyncHandler( async(req, res) => {
         httpOnly: true,
         // secure: true
         secure: process.env.ENV === 'production',
-        sameSite: 'None',
+        sameSite: 'Lax',
         domain: process.env.ENV === 'production' ? process.env.CORS_ORIGIN : process.env.CORS_LOCAL
     }
 

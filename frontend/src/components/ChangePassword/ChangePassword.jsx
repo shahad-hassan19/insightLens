@@ -65,7 +65,7 @@ export default function ChangePassword() {
             setMessage('')
             const { prevPassword, newPassword, confNewPassword } = formState;
             try {
-                await axios.put("https://insight-lens-backend.vercel.app/api/users/change-password", { prevPassword, newPassword, confNewPassword }, {
+                await axios.put("http://localhost:4000/api/users/change-password", { prevPassword, newPassword, confNewPassword }, {
                     withCredentials: true
                 })
                 // toast.success('Password changed successfully!')

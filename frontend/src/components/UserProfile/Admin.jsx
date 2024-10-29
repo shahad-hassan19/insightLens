@@ -5,7 +5,6 @@ import defaultPic from '../../assets/profile-pic.png'
 export default function Admin() {
     const [ userData, setUserData ] = useState({})
     const [ file, setFile ] = useState(null);
-    const [ profilePic, setProfilePic ] = useState('')
     const [ editAble, setEditAble ] = useState(false)
 
     const handleClick = () => {
@@ -25,7 +24,7 @@ export default function Admin() {
             return;
         }
         try {
-            await axios.post('https://insight-lens-backend.vercel.app/api/users/upload-profile', data, {
+            await axios.post('http://localhost:4000/api/users/upload-profile', data, {
                 headers: {Authorization: `${token}`}
             })
             setEditAble(false)
@@ -42,12 +41,11 @@ export default function Admin() {
         }
 
         try {
-            const response = await axios.get('https://insight-lens-backend.vercel.app/api/users/currentUser', {
+            const response = await axios.get('http://localhost:4000/api/users/currentUser', {
                 headers: {Authorization: `${token}`}
             });
             const user = response.data.data;
             setUserData(user);
-            setProfilePic(user.profile || defaultPic);
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
@@ -61,18 +59,26 @@ export default function Admin() {
     return(
         <div className='flex flex-col items-center'>
             {editAble ? (
-                <div>
-                    <input type='file'
-                        onChange={handleSelectFile}
-                        className='outline-none rounded-full border-black'
-                    />
-                    <button onClick={handleUpload}>
-                        Upload
+                <div className='m-5 flex flex-col items-center gap-y-3'>
+                    {
+                        userData?.profile && (<img src={userData?.profile || defaultPic} width={120} height={120} className="object-center rounded-md" />)
+                    }
+                    <div className='inline-flex items-center justify-center'>
+                        <input type='file'
+                            onChange={handleSelectFile}
+                            className='outline-none border-black'
+                        />
+                        <button className='text-white' onClick={handleUpload}>
+                            Upload
+                        </button>
+                    </div>
+                    <button className='text-white' onClick={() => setEditAble(false)}>
+                        Cancel
                     </button>
                 </div>
             ): (
                 <div className='m-5 flex flex-col gap-y-3 self-center'>
-                    <img src={profilePic} width={160} height={100} className="rounded-full object-cover overflow-clip" />
+                    <img src={userData?.profile || defaultPic} width={120} height={120} className="object-center rounded-md" />
                     <span onClick={handleClick} className='font-medium cursor-pointer'>
                         Change Profile Picture
                     </span>

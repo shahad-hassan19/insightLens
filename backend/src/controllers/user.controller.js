@@ -42,9 +42,10 @@ const registerUser = asyncHandler( async(req, res) => {
 
         const options = {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'None',
-            domain: process.env.ENV === 'production' ? process.env.CORS_ORIGIN : process.env.CORS_LOCAL
+            secure: true,
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: 'None',
+            // domain: process.env.ENV === 'production' ? process.env.CORS_ORIGIN : process.env.CORS_LOCAL
         }
 
         const user = await User.create({
@@ -95,9 +96,10 @@ const loginUser = asyncHandler( async(req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: process.env.ENV === 'production',
-        sameSite: 'None',
-        domain: process.env.ENV === 'production' ? process.env.CORS_ORIGIN : process.env.CORS_LOCAL
+        secure: true
+        // secure: process.env.ENV === 'production',
+        // sameSite: 'None',
+        // domain: process.env.ENV === 'production' ? process.env.CORS_ORIGIN : process.env.CORS_LOCAL
     }
 
     return res

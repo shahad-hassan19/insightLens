@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 const app = express()
 
 app.use(async(req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', process.env.CORS_ORIGIN);
+    res.setHeader('Access-Control-Allow-Origin', process.env.CORS_LOCAL);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');

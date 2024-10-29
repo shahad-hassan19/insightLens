@@ -25,7 +25,7 @@ export default function Register() {
         }
 
         try {
-            await axios.post('https://insight-lens-backend.vercel.app/api/users/register', formData);
+            await axios.post('http://localhost:4000/api/users/register', formData);
             navigate("/login")
         } catch (error) {
             setError("Username or Email already exists.")

@@ -30,7 +30,7 @@ const YearData = () => {
         try {
             const yearNumbers = []
             const reportCounts = []
-            const response = await axios.get("https://insight-lens-backend.vercel.app/api/users/year");
+            const response = await axios.get("http://localhost:4000/api/users/year");
             const fetchedData = response.data
             yearNumbers.push(...fetchedData.map(item => item.year))
             reportCounts.push(...fetchedData.map(item => item.yearCounts))

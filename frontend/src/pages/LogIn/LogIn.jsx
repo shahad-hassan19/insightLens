@@ -24,7 +24,7 @@ export default function LogIn() {
         const { usernameOrEmail, password } = formData;
         const isEmail = usernameOrEmail.includes('@');
         try {
-            const response = await axios.post('http://localhost:4000/api/users/login', {
+            const response = await axios.post('https://insight-lens-backend.vercel.app/api/users/login', {
                 [isEmail ? 'email' : 'username']: usernameOrEmail,
                 password
             }, {
